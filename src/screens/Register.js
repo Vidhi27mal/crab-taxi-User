@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 
-const Register = () => {
+const Register = ({ navigation } ) => {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -18,7 +18,7 @@ const Register = () => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleRegister = ({ navigation }) => {
+  const handleRegister = () => {
     if (!username || !email || !password || !confirmPassword) {
       Alert.alert("Error", "All fields are required");
       return;
