@@ -7,6 +7,9 @@ import Login from '../screens/Login'
 import Register from '../screens/Register'
 import OtpScreen from "../screens/OtpScreen";
 import PlanRide from "../screens/PlanRide";
+import RideDetails from "../screens/RideDetails";
+import SelectVehicle from "../screens/SelectVehicle";
+
 
 const Stack = createStackNavigator();
 
@@ -21,6 +24,8 @@ export default function AppNavigator() {
             <Stack.Screen name="Register" component={Register}></Stack.Screen>
             <Stack.Screen name="OtpScreen" component={OtpScreen}></Stack.Screen>
             <Stack.Screen name="PlanRide" component={PlanRide}></Stack.Screen>
+            <Stack.Screen name="RideDetails" component={RideDetails}></Stack.Screen>
+            <Stack.Screen name="SelectVehicle" component={SelectVehicle}></Stack.Screen>
         </Stack.Navigator>
     </NavigationContainer>
   )
