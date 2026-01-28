@@ -9,8 +9,9 @@ import OtpScreen from "../screens/OtpScreen";
 import PlanRide from "../screens/PlanRide";
 import RideDetails from "../screens/RideDetails";
 import SelectVehicle from "../screens/SelectVehicle";
-import MatchingDriver from "../screens/MatchingDiver";
+import MatchingDriver from "../screens/MatchingDriver";
 import PickupMap from "../screens/PickupMap";
+import ShareOtp from "../screens/ShareOtp";
 
 
 const Stack = createStackNavigator();
@@ -30,6 +31,7 @@ export default function AppNavigator() {
             <Stack.Screen name="SelectVehicle" component={SelectVehicle}></Stack.Screen>
             <Stack.Screen name="MatchingDriver" component={MatchingDriver}></Stack.Screen>
             <Stack.Screen name="PickupMap" component={PickupMap}></Stack.Screen>
+            <Stack.Screen name="ShareOtp" component={ShareOtp}></Stack.Screen>
         </Stack.Navigator>
     </NavigationContainer>
   )
