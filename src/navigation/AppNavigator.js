@@ -12,6 +12,8 @@ import SelectVehicle from "../screens/SelectVehicle";
 import MatchingDriver from "../screens/MatchingDriver";
 import PickupMap from "../screens/PickupMap";
 import ShareOtp from "../screens/ShareOtp";
+import RideCompleted from "../screens/RideCompleted";
+import DriverTip from "../screens/DriverTip"; 
 
 
 const Stack = createStackNavigator();
@@ -32,6 +34,8 @@ export default function AppNavigator() {
             <Stack.Screen name="MatchingDriver" component={MatchingDriver}></Stack.Screen>
             <Stack.Screen name="PickupMap" component={PickupMap}></Stack.Screen>
             <Stack.Screen name="ShareOtp" component={ShareOtp}></Stack.Screen>
+            <Stack.Screen name="RideCompleted" component={RideCompleted}></Stack.Screen>
+            <Stack.Screen name="DriverTip" component={DriverTip}></Stack.Screen>
         </Stack.Navigator>
     </NavigationContainer>
   )
