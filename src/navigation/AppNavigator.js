@@ -6,14 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import Login from '../screens/Login'
 import Register from '../screens/Register'
 import OtpScreen from "../screens/OtpScreen";
-import PlanRide from "../screens/PlanRide";
-import RideDetails from "../screens/RideDetails";
-import SelectVehicle from "../screens/SelectVehicle";
-import MatchingDriver from "../screens/MatchingDriver";
-import PickupMap from "../screens/PickupMap";
-import ShareOtp from "../screens/ShareOtp";
-import RideCompleted from "../screens/RideCompleted";
-import DriverTip from "../screens/DriverTip"; 
+import DrawerNavigator from "./DrawerNavigator";
 
 
 const Stack = createStackNavigator();
@@ -28,14 +21,9 @@ export default function AppNavigator() {
             <Stack.Screen name="Login" component={Login}></Stack.Screen>
             <Stack.Screen name="Register" component={Register}></Stack.Screen>
             <Stack.Screen name="OtpScreen" component={OtpScreen}></Stack.Screen>
-            <Stack.Screen name="PlanRide" component={PlanRide}></Stack.Screen>
-            <Stack.Screen name="RideDetails" component={RideDetails}></Stack.Screen>
-            <Stack.Screen name="SelectVehicle" component={SelectVehicle}></Stack.Screen>
-            <Stack.Screen name="MatchingDriver" component={MatchingDriver}></Stack.Screen>
-            <Stack.Screen name="PickupMap" component={PickupMap}></Stack.Screen>
-            <Stack.Screen name="ShareOtp" component={ShareOtp}></Stack.Screen>
-            <Stack.Screen name="RideCompleted" component={RideCompleted}></Stack.Screen>
-            <Stack.Screen name="DriverTip" component={DriverTip}></Stack.Screen>
+
+            <Stack.Screen name="Main" component={DrawerNavigator}></Stack.Screen>
+           
         </Stack.Navigator>
     </NavigationContainer>
   )

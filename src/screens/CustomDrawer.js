@@ -1,28 +1,29 @@
-import { View, Text, TouchableOpacity, StyleSheet} from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-const CustomDrawer = ({navigation}) => {
+const CustomDrawer = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      
-      {/* CLOSE DRAWER */}
-      <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginBottom:20}}>
-      <TouchableOpacity onPress={ () => navigation.closeDrawer()}
-        style={styles.closeBtn}>
-        <Icon name="close" size={30} color="red" />
-      </TouchableOpacity>
 
-      {/* PROFILE */}
-      <Icon name="person" style={styles.profileIcon} />
+      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+        <TouchableOpacity onPress={() => navigation.closeDrawer()}
+          style={styles.closeBtn}>
+          <Icon name="close" size={30} color="red" />
+        </TouchableOpacity>
+
+        <Icon name="person" style={styles.profileIcon} />
       </View>
       <Text style={styles.name}>Gourav</Text>
 
-      {/* Menu Items */}
       {["Profile", "Inbox", "Activity", "Wallet", "Help", "Settings"].map(
         (item) => (
-          <TouchableOpacity key={item} style={styles.menuItem}>
+          <TouchableOpacity key={item} style={styles.menuItem}
+            onPress={() => {
+              navigation.navigate(item);
+              navigation.closeDrawer();
+            }}>
             <Text style={styles.menuText}>{item}</Text>
           </TouchableOpacity>
         )
@@ -32,13 +33,11 @@ const CustomDrawer = ({navigation}) => {
         <Text style={styles.logout}>Log Out</Text>
       </TouchableOpacity>
 
-      {/* Emergency Button */}
       <TouchableOpacity style={styles.emergencyBtn}>
         <Icon name="warning" size={18} color="#fff" />
         <Text style={styles.emergencyText}> Emergency</Text>
       </TouchableOpacity>
 
-      {/* Night Mode */}
       <View style={styles.night}>
         <Icon name="moon" size={20} />
         <Text style={{ marginLeft: 6 }}>NIGHT</Text>

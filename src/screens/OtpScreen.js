@@ -15,7 +15,7 @@ const OtpScreen = ({ navigation }) => {
         }
 
         if (newOtp.join("").length === 6) {
-            navigation.replace("PlanRide");
+            navigation.replace("Login");
         }
     };
 

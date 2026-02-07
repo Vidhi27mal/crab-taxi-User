@@ -18,7 +18,7 @@ const Login = ({ navigation }) => {
     setUsername('');
     setPassword('');
 
-    navigation.navigate('PlanRide');
+    navigation.replace('Main');
   };
 
   const handleRegister = () => {

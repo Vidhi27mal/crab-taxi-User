@@ -27,7 +27,8 @@ const PlanRide = ({ navigation }) => {
           />
         </View>
 
-        <Icon name="menu" size={40} color="#00bf63" />
+        <Icon name="menu" size={40} color="#00bf63" 
+        onPress={() => navigation.openDrawer()}/>
       </View>
 
       <Text style={styles.title}>Plan your ride</Text>
