@@ -21,9 +21,15 @@ onPress={() => navigation.navigate('DebitCard')}>
   style={{ backgroundColor:'#2ECC71', padding:15, borderRadius:12, marginTop:20 }}
   onPress={() => navigation.navigate('HelpAndSupport')}
 >
-  <Text >
-    Help & Support
-  </Text>
+  
+</TouchableOpacity>
+
+
+<TouchableOpacity
+  style={{ backgroundColor:'#2ECC71', padding:15, borderRadius:12, marginTop:20 }}
+  onPress={() => navigation.navigate('Inbox')}
+>
+  
 </TouchableOpacity>
 
     </View>

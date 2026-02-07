@@ -5,25 +5,21 @@ export default function HelpAndSupport({ navigation }) {
     return (
         <View style={styles.container}>
 
-            <Text style={styles.title}>Help & Support</Text>
+            <Text style={styles.title}>Safety</Text>
 
             <TouchableOpacity
                 style={styles.option}
-                onPress={() => navigation.navigate('PaymentRefundIssue')}>
-                <Text style={styles.optionText}>Payment / Refund Issue</Text>
+                onPress={() => navigation.navigate('Emergency')}>
+                <Text style={styles.optionText}>Emergency SOS</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={styles.option}
-                onPress={() => navigation.navigate('RideCancellationIssue')}>
-                <Text style={styles.optionText}>Ride / Cancellation Issue</Text>
+                onPress={() => navigation.navigate('LiveTracking')}>
+                <Text style={styles.optionText}>Live Ride Tracking</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-                style={styles.option}
-                onPress={() => navigation.navigate('ContactSupport')}>
-                <Text style={styles.optionText}>Contact Support</Text>
-            </TouchableOpacity>
+            
 
 
             

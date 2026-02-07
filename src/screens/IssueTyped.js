@@ -1,32 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,TextInput , TouchableOpacity} from 'react-native';
 
-export default function RefundStatus() {
+export default function Issuetyped() {
   return (
     <View style={styles.container}>
 
-      <Text style={styles.title}>Refund Status</Text>
+      <Text style={styles.title}>Submit Complain</Text>
 
-      {/* Refund Details */}
+     
       <View style={styles.card}>
         <View style={styles.row}>
-          <Text style={styles.label}>Status : In Process</Text>
-          
+        <Text style={styles.label}>Type Your Issue</Text>
+        <TextInput style={styles.input}  placeholder="type Issue" />
+
         </View>
+         </View>
 
-       
-
+         
+      
         
       </View>
 
-    
-      <View style={styles.card}>
-        <Text style={styles.label}>Expected Time : 3-5 days</Text>
-
-        
-      </View>
-
-    </View>
+  
   );
 }
 
@@ -35,17 +30,13 @@ const styles = StyleSheet.create({
   title: { fontSize:32, fontWeight:'700', color:'#2ECC71', marginBottom:60, marginTop:20 , textAlign:'center' },
 
   card: {
-    borderWidth:1,
+    borderWidth:3,
     borderColor:'#2ECC71',
     borderRadius:12,
     padding:15,
     marginBottom:15
   },
-  row: {
-    flexDirection:'row',
-    justifyContent:'space-between',
-    marginBottom:10
-  },
+  
   label: { color:'black' , fontSize:17 },
   value: { color:'#111', fontWeight:'500' },
   total: { fontWeight:'700', color:'#2ECC71' },
