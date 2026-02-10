@@ -12,7 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 export default function ChatSupport() {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
-    { id: '1', text: 'Thank you', from: 'support' }
+    { id: '1', text: 'Hello! How can we help you?', from: 'support' }
   ]);
 
   const sendMessage = () => {
@@ -117,3 +117,4 @@ const styles = StyleSheet.create({
       borderRadius: 25
     }
   });
+

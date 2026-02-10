@@ -2,14 +2,14 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import PlanRide from '../screens/PlanRide';
-import RideDetails from '../screens/RideDetails';
-import SelectVehicle from '../screens/SelectVehicle';
+import PlanRide from '../RideInfo/PlanRide';
+import RideDetails from '../RideInfo/RideDetails';
+import SelectVehicle from '../RideInfo/SelectVehicle';
 import MatchingDriver from '../screens/MatchingDriver';
-import PickupMap from '../screens/PickupMap';
-import ShareOtp from '../screens/ShareOtp';
-import RideCompleted from '../screens/RideCompleted';
-import DriverTip from '../screens/DriverTip'; 
+import PickupMap from '../RideInfo/PickupMap';
+import ShareOtp from '../RideInfo/ShareOtp';
+import RideCompleted from '../RideInfo/RideCompleted';
+import DriverTip from '../RideInfo/DriverTip'; 
 import Summary from '../screens/Summary';
 
 const Stack = createStackNavigator();

@@ -1,9 +1,9 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import Inbox from '../screens/Inbox';
-import Notifications from '../screens/Notifications';
-import MessagesScreen from '../screens/MessagesScreen';
-import ChatScreen from '../screens/ChatScreen';
+import Inbox from '../Inbox/Inbox';
+import Notifications from '../Inbox/Notifications';
+import MessagesScreen from '../Inbox/MessagesScreen';
+import ChatScreen from '../Inbox/ChatScreen';
 import { StyleSheet } from 'react-native/types_generated/index';
 
 const InboxStack = createStackNavigator();

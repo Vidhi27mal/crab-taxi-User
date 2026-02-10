@@ -7,11 +7,7 @@ export default function RideCancellationIssue({ navigation }) {
 
       <Text style={styles.title}>Ride & Cancellation Issues</Text>
 
-      <TouchableOpacity
-        style={styles.option}
-        onPress={() => navigation.navigate('DriverDidNotArrive')}>
-        <Text style={styles.optionText}>Driver did not arrive</Text>
-      </TouchableOpacity>
+      
 
       <TouchableOpacity
         style={styles.option}
@@ -21,8 +17,8 @@ export default function RideCancellationIssue({ navigation }) {
 
       <TouchableOpacity
         style={styles.option}
-        onPress={() => navigation.navigate('ChargedForCancelledRide')}>
-        <Text style={styles.optionText}>Charged for cancelled ride</Text>
+        onPress={() => navigation.navigate('CantCancelRide')}>
+        <Text style={styles.optionText}>Can't Cancel ride</Text>
       </TouchableOpacity>
 
     </View>
@@ -31,13 +27,14 @@ export default function RideCancellationIssue({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex:1, backgroundColor:'#fff', padding:20 },
-  title: { fontSize:22, fontWeight:'700', color:'#2ECC71', marginBottom:25 },
+  title: { fontSize:33, fontWeight:'700', color:'#2ECC71', marginBottom:25,textAlign:'center' },
   option: {
     borderWidth:1,
     borderColor:'#2ECC71',
     borderRadius:12,
     padding:18,
-    marginBottom:15
+    marginBottom:15,
+    marginTop:20
   },
-  optionText: { fontSize:16, fontWeight:'500', color:'#111' }
+  optionText: { fontSize:18, fontWeight:'500', color:'#111' }
 });

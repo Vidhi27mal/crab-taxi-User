@@ -1,29 +1,39 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function HelpAndSupport({ navigation }) {
     return (
         <View style={styles.container}>
+            <TouchableOpacity style={styles.header} onPress={() => navigation.goBack()}>
+                <Icon name="close" style={styles.closeIcon} />
 
-            <Text style={styles.title}>Help & Support</Text>
 
-            <TouchableOpacity
-                style={styles.option}
-                onPress={() => navigation.navigate('PaymentRefundIssue')}>
-                <Text style={styles.optionText}>Payment / Refund Issue</Text>
-            </TouchableOpacity>
+                <Text style={styles.title}>Help & Support</Text>
+                </TouchableOpacity>
+                <View>
+                    <TouchableOpacity
+                        style={styles.option}
+                        onPress={() => navigation.navigate('PaymentRefundIssue')}>
+                        <Text style={styles.optionText}>Payment / Refund Issue</Text>
+                    </TouchableOpacity>
 
-            <TouchableOpacity
-                style={styles.option}
-                onPress={() => navigation.navigate('RideCancellationIssue')}>
-                <Text style={styles.optionText}>Ride / Cancellation Issue</Text>
-            </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.option}
+                        onPress={() => navigation.navigate('RideCancellationIssue')}>
+                        <Text style={styles.optionText}>Ride / Cancellation Issue</Text>
+                    </TouchableOpacity>
 
-            <TouchableOpacity
-                style={styles.option}
-                onPress={() => navigation.navigate('ContactSupport')}>
-                <Text style={styles.optionText}>Contact Support</Text>
-            </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.option}
+                        onPress={() => navigation.navigate('ContactSupport')}>
+                        <Text style={styles.optionText}>Contact Support</Text>
+                    </TouchableOpacity>
+
+
+
+
+                </View>
 
         </View>
     );

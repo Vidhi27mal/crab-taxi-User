@@ -1,6 +1,16 @@
 import React from 'react';
 import AppNavigator from './src/navigation/AppNavigator';
+import { StatusBar} from 'react-native';
 
 export default function App() {
-  return <AppNavigator />;
+  return (
+  <>
+  <StatusBar
+  barStyle="dark-content"
+  hidden={false}
+  backgroundColor="#ffffff"
+/>
+  <AppNavigator />;
+  </>
+  )
 }

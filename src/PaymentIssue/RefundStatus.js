@@ -10,28 +10,20 @@ export default function RefundStatus() {
       {/* Refund Details */}
       <View style={styles.card}>
         <View style={styles.row}>
-          <Text style={styles.label}>Refund ID</Text>
-          <Text style={styles.value}>RF239041</Text>
+          <Text style={styles.label}>Status : In Process</Text>
+          
         </View>
 
-        <View style={styles.row}>
-          <Text style={styles.label}>Payment Method</Text>
-          <Text style={styles.value}>Debit Card</Text>
-        </View>
+       
 
-        <View style={styles.row}>
-          <Text style={styles.label}>Refund Amount</Text>
-          <Text style={styles.total}>₹370</Text>
-        </View>
+        
       </View>
 
     
       <View style={styles.card}>
-        <Text style={styles.sectionTitle}>Refund Timeline</Text>
+        <Text style={styles.label}>Expected Time : 3-5 days</Text>
 
-        <Text style={styles.step}>• Request Received</Text>
-        <Text style={styles.step}>• Processing</Text>
-        <Text style={styles.step}>• Amount will be credited in 5–7 days</Text>
+        
       </View>
 
     </View>
@@ -40,7 +32,7 @@ export default function RefundStatus() {
 
 const styles = StyleSheet.create({
   container: { flex:1, backgroundColor:'#fff', padding:20 },
-  title: { fontSize:32, fontWeight:'700', color:'#2ECC71', marginBottom:60, marginTop:20 },
+  title: { fontSize:32, fontWeight:'700', color:'#2ECC71', marginBottom:60, marginTop:20 , textAlign:'center' },
 
   card: {
     borderWidth:1,
@@ -54,7 +46,7 @@ const styles = StyleSheet.create({
     justifyContent:'space-between',
     marginBottom:10
   },
-  label: { color:'#555' },
+  label: { color:'black' , fontSize:17 },
   value: { color:'#111', fontWeight:'500' },
   total: { fontWeight:'700', color:'#2ECC71' },
 

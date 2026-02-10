@@ -17,9 +17,7 @@ export default function PaymentFailed({ navigation }) {
         <View style={styles.container}>
 
             <Text style={styles.title}>Payment Failed!</Text>
-            <Text style={styles.subtitle}>
-                🚨Your last payment could not be completed. Please choose a payment method.
-            </Text>
+            
 
             <TouchableOpacity style={styles.option} onPress={retryPayment}>
                 <Text style={styles.optionText}>Retry Payment</Text>
@@ -49,10 +47,7 @@ const styles = StyleSheet.create({
         marginTop: 22,
         textAlign: 'center'
     },
-    subtitle: {
-        color: 'black',
-        marginBottom: 25
-    },
+    
     option: {
         borderWidth: 1,
         borderColor: '#00bf63',
