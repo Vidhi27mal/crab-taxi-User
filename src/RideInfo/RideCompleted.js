@@ -26,7 +26,7 @@ const RideCompleted = ({ navigation }) => {
         <Text style={styles.fareAmount}>$40</Text>
       </View>
 
-      <TouchableOpacity style={styles.payBtn}>
+      <TouchableOpacity style={styles.payBtn} onPress={() => navigation.navigate("PaymentMethod")}>
         <Text style={styles.payText}>Pay Now</Text>
       </TouchableOpacity>
 
