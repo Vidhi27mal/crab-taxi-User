@@ -1,22 +1,41 @@
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView, Alert, } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView, Alert, } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [usernameerror, setUsernameError] = useState('');
+  const [passworderror, setPasswordError] = useState('');
 
 
   const handleLogin = () => {
-    if (!username || !password) {
-      Alert.alert("Error", "All fields are required");
+    let valid = true;
+
+    if(!username){
+      setUsernameError('Username is required');
+      valid = false;
+    } else {
+      setUsernameError('');
+    }
+    
+    if(!password){
+      setPasswordError('Password is required');
+      valid = false;
+    } else {
+      setPasswordError('');
+    }
+    
+    if(!valid) {
       return;
     }
+    
     // clear form
     setUsername('');
     setPassword('');
+    setUsernameError('');
+    setPasswordError('');
 
     navigation.replace('Main');
   };
@@ -28,12 +47,8 @@ const Login = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboardAvoidingView}
-      >
-        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
-
+     
+        <ScrollView contentContainerStyle={styles.scrollContent}>
 
           <View style={styles.content}>
      
@@ -48,32 +63,46 @@ const Login = ({ navigation }) => {
             <View style={styles.formContainer}>
               <Text style={styles.subtitle}>Enter your login Details</Text>
 
-              <View style={styles.inputContainer}>
+              <View style={[styles.inputContainer , usernameerror ? styles.errorInput : null]} 
+              >
                 <TextInput
                   style={styles.input}
                   placeholder="Enter Username"
                   placeholderTextColor="#000"
                   value={username}
-                  onChangeText={setUsername}
+                  onChangeText={(text) => {
+                    setUsername(text);
+                    setUsernameError('');
+                  }}
                   autoCapitalize="none"
                   autoCorrect={false}
                 />
                 <Icon name="person" size={22} color="#00bf63" style={styles.inputIcon} />
               </View>
 
-              <View style={styles.inputContainer}>
+              {usernameerror ? (
+                <Text style={styles.errorText}>{usernameerror}</Text>
+              ): null}
+
+              <View style={[styles.inputContainer, passworderror ? styles.errorInput : null]}>
                 <TextInput
                   style={styles.input}
                   placeholder="Enter Password"
                   placeholderTextColor="#000"
                   value={password}
-                  onChangeText={setPassword}
+                  onChangeText={(text) => {
+                    setPassword(text);
+                    setPasswordError('');
+                  }}
                   autoCapitalize="none"
-                  disableFullscreenUI={true}
+                  secureTextEntry={true}
                 />
                 <Icon name="lock-closed" size={22} color="#00bf63" style={styles.inputIcon} />
               </View>
 
+              {passworderror ? (
+                <Text style={styles.errorText}>{passworderror}</Text>
+              ): null}
 
               <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
                 <Text style={styles.loginButtonText}>Log in</Text>
@@ -86,7 +115,6 @@ const Login = ({ navigation }) => {
 
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -95,9 +123,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  keyboardAvoidingView: {
-    flex: 1,
   },
   scrollContent: {
     flexGrow: 1,
@@ -159,7 +184,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
   },
+  errorInput: {
+  borderColor: 'red',
+},
 
+errorText: {
+  color: 'red',
+  fontSize: 14,
+  marginTop: -20,
+  marginBottom: 15,
+  marginLeft: 5,
+},
 });
 
 export default Login;
