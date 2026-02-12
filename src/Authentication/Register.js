@@ -1,11 +1,23 @@
-
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import React, { useState, useContext } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { ThemeContext } from "../Theme/ThemeContext";
 
+const Register = ({ navigation }) => {
 
-const Register = ({ navigation } ) => {
+  const { theme } = useContext(ThemeContext);
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -39,121 +51,127 @@ const Register = ({ navigation } ) => {
       return;
     }
 
-    // clear form fields
     setUsername("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
 
     navigation.navigate("OtpScreen", { email });
-
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.keyboardAvoidingView}
-          >
-            <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.keyboardAvoidingView}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
 
-        <View style={styles.content}>
-        
-          <View style={styles.logoContainer}>
-            <Image
-              source={require('../assets/logo.png')} 
-              style={styles.logo}
-              resizeMode="contain"
-            />
-          </View>
+          <View style={styles.content}>
 
-          <View style={styles.formContainer}>
-            <Text style={styles.subtitle}>Create an Account</Text>
-
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Username"
-                placeholderTextColor="#000"
-                value={username}
-                onChangeText={setUsername}
-                autoCapitalize="none"
-                autoCorrect={false}
+            <View style={styles.logoContainer}>
+              <Image
+                source={require("../assets/logo.png")}
+                style={styles.logo}
+                resizeMode="contain"
               />
-              <Icon name="account-check" size={22} color="#00bf63" style={styles.inputIcon} />
             </View>
 
+            <View style={styles.formContainer}>
+              <Text style={[styles.subtitle, { color: theme.primary }]}>
+                Create an Account
+              </Text>
 
-            <View style={styles.inputContainer}>
-              <TextInput
-                placeholder="Email"
-                placeholderTextColor="#000"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                style={styles.input}
-              />
-              <Icon name="email-check" size={22} color="#00bf63" style={styles.inputIcon} />
-            </View>
-
-
-            <View style={styles.inputContainer}>
-              <TextInput
-                placeholder="Password"
-                placeholderTextColor="#000"
-                secureTextEntry={!showPassword}
-                value={password}
-                onChangeText={setPassword}
-                style={styles.input}
-              />
-              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                <Icon
-                  name={showPassword ? "eye-off" : "eye"}
-                  size={22}
-                  color="#00bf63"
-                  style={styles.inputIcon}
+              {/* Username */}
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={[styles.input, { color: theme.text }]}
+                  placeholder="Username"
+                  placeholderTextColor={theme.text}
+                  value={username}
+                  onChangeText={setUsername}
                 />
-              </TouchableOpacity>
-            </View>
+                <Icon name="account-check" size={22} color={theme.primary} style={styles.inputIcon} />
+              </View>
 
+              {/* Email */}
+              <View style={styles.inputContainer}>
+                <TextInput
+                  placeholder="Email"
+                  placeholderTextColor={theme.text}
+                  value={email}
+                  onChangeText={setEmail}
+                  keyboardType="email-address"
+                  style={[styles.input, { color: theme.text }]}
+                />
+                <Icon name="email-check" size={22} color={theme.primary} style={styles.inputIcon} />
+              </View>
 
-            <View style={styles.inputContainer}>
-              <TextInput
-                placeholder="Confirm Password"
-                placeholderTextColor="#000"
-                secureTextEntry={!showConfirmPassword}
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-                style={styles.input}
-              />
+              {/* Password */}
+              <View style={styles.inputContainer}>
+                <TextInput
+                  placeholder="Password"
+                  placeholderTextColor={theme.text}
+                  secureTextEntry={!showPassword}
+                  value={password}
+                  onChangeText={setPassword}
+                  style={[styles.input, { color: theme.text }]}
+                />
+                <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                  <Icon
+                    name={showPassword ? "eye-off" : "eye"}
+                    size={22}
+                    color={theme.primary}
+                    style={styles.inputIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+
+              {/* Confirm Password */}
+              <View style={styles.inputContainer}>
+                <TextInput
+                  placeholder="Confirm Password"
+                  placeholderTextColor={theme.text}
+                  secureTextEntry={!showConfirmPassword}
+                  value={confirmPassword}
+                  onChangeText={setConfirmPassword}
+                  style={[styles.input, { color: theme.text }]}
+                />
+                <TouchableOpacity
+                  onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  <Icon
+                    name={showConfirmPassword ? "eye-off" : "eye"}
+                    size={22}
+                    color={theme.primary}
+                    style={styles.inputIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+
               <TouchableOpacity
-                onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                style={[styles.loginButton, { backgroundColor: theme.primary }]}
+                onPress={handleRegister}
               >
-                <Icon
-                  name={showConfirmPassword ? "eye-off" : "eye"}
-                  size={22}
-                  color="#00bf63"
-                  style={styles.inputIcon}
-                />
+                <Text style={[styles.loginButtonText, { color: theme.buttonText }]}>
+                  SIGN UP
+                </Text>
               </TouchableOpacity>
-            </View>
 
-            <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
-              <Text style={styles.loginButtonText}>SIGN UP</Text>
-            </TouchableOpacity>
+            </View>
           </View>
 
-        </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
 
+export default Register;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   keyboardAvoidingView: {
     flex: 1,
@@ -164,10 +182,10 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   logoContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 20,
     marginBottom: 20,
   },
@@ -176,23 +194,22 @@ const styles = StyleSheet.create({
     height: 100,
   },
   formContainer: {
-    width: '100%',
+    width: "100%",
     maxWidth: 400,
     borderRadius: 12,
     paddingVertical: 30,
   },
   subtitle: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#00bf63',
+    fontWeight: "600",
     marginBottom: 24,
-    textAlign: 'left',
+    textAlign: "left",
   },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
-    borderColor: '#00bf63',
+    borderColor: "#00bf63",
     borderRadius: 8,
     marginBottom: 15,
   },
@@ -204,21 +221,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 14,
     fontSize: 16,
-    color: '#333',
   },
   loginButton: {
-    backgroundColor: '#00bf63',
     borderRadius: 8,
     padding: 16,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 12,
   },
   loginButtonText: {
-    color: '#000',
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
   },
-
 });
-
-export default Register;
