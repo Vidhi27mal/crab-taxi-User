@@ -8,9 +8,25 @@ const PlanRide = ({ navigation }) => {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
 
+  const[pickupError, setPickupError] = useState("");
+  const[destinationError, setDestinationError] = useState("");
+
   const handleRideDetails = () => {
-    if (!pickup || !destination) {
-      Alert.alert("Error", "All fields are required");
+    let valid = true;
+    if (!pickup) {
+      setPickupError("Pickup location is required");
+      valid = false;
+    } else {
+      setPickupError("");
+    }
+    if (!destination) {
+      setDestinationError("Destination is required");
+      valid = false;
+    }
+      else {  
+      setDestinationError("");
+    }
+    if (!valid) {
       return;
     }
     navigation.navigate("RideDetails", { pickup, destination });
@@ -33,27 +49,40 @@ const PlanRide = ({ navigation }) => {
 
       <Text style={styles.title}>Plan your ride</Text>
 
-      <View style={styles.inputBox}>
+      <View style={[styles.inputBox, pickupError ? styles.errorInput : null]}>
         <Icon name="search" size={22} color="#00bf63" />
         <TextInput
           placeholder="Choose your location"
           placeholderTextColor="#666"
           style={styles.input}
           value={pickup}
-          onChangeText={setPickup}
+          onChangeText={(text) => {
+            setPickup(text);
+            setPickupError("");
+          }}
         />
       </View>
 
-      <View style={styles.inputBox}>
+      {pickupError ? (
+        <Text style={styles.errorText}>{pickupError}</Text>
+      ) : null}
+
+      <View style={[styles.inputBox, destinationError ? styles.errorInput : null]}>
         <Icon name="search" size={22} color="#00bf63" />
         <TextInput
           placeholder="Destination?"
           placeholderTextColor="#666"
           style={styles.input}
           value={destination}
-          onChangeText={setDestination}
+          onChangeText={(text) => {
+            setDestination(text);
+            setDestinationError("");
+          }}
         />
       </View>
+      {destinationError ? (
+        <Text style={styles.errorText}>{destinationError}</Text>
+      ) : null}
 
       <TouchableOpacity style={styles.primaryBtn}
         onPress= {handleRideDetails}
@@ -140,7 +169,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
   },
+  errorInput: {
+  borderColor: 'red',
+},
+errorText: {
+  color: 'red',
+  fontSize: 14,
+  marginTop: -10,
+  marginBottom: 15,
+  marginLeft: 5,
+},
 });
-
 
 export default PlanRide;
