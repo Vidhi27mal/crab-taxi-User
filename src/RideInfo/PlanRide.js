@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ThemeContext } from "../Theme/ThemeContext";
@@ -17,9 +16,25 @@ const PlanRide = ({ navigation }) => {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
 
+  const[pickupError, setPickupError] = useState("");
+  const[destinationError, setDestinationError] = useState("");
+
   const handleRideDetails = () => {
-    if (!pickup || !destination) {
-      Alert.alert("Error", "All fields are required");
+    let valid = true;
+    if (!pickup) {
+      setPickupError("Pickup location is required");
+      valid = false;
+    } else {
+      setPickupError("");
+    }
+    if (!destination) {
+      setDestinationError("Destination is required");
+      valid = false;
+    }
+      else {  
+      setDestinationError("");
+    }
+    if (!valid) {
       return;
     }
     navigation.navigate("RideDetails", { pickup, destination });
@@ -49,7 +64,9 @@ const PlanRide = ({ navigation }) => {
         Plan your ride
       </Text>
 
-      {/* PICKUP */}
+      <View style={[styles.inputBox, pickupError ? styles.errorInput : null]}>
+        <Icon name="search" size={22} color="#00bf63" />
+
       <View
         style={[
           styles.inputBox,
@@ -62,11 +79,21 @@ const PlanRide = ({ navigation }) => {
           placeholderTextColor={theme.text === "#ffffff" ? "#aaa" : "#666"}
           style={[styles.input, { color: theme.text }]}
           value={pickup}
-          onChangeText={setPickup}
+          onChangeText={(text) => {
+            setPickup(text);
+            setPickupError("");
+          }}
         />
       </View>
+      </View>
 
-      {/* DESTINATION */}
+      {pickupError ? (
+        <Text style={styles.errorText}>{pickupError}</Text>
+      ) : null}
+
+      <View style={[styles.inputBox, destinationError ? styles.errorInput : null]}>
+        <Icon name="search" size={22} color="#00bf63" />
+     
       <View
         style={[
           styles.inputBox,
@@ -79,11 +106,17 @@ const PlanRide = ({ navigation }) => {
           placeholderTextColor={theme.text === "#ffffff" ? "#aaa" : "#666"}
           style={[styles.input, { color: theme.text }]}
           value={destination}
-          onChangeText={setDestination}
+          onChangeText={(text) => {
+            setDestination(text);
+            setDestinationError("");
+          }}
         />
       </View>
+      </View>
+      {destinationError ? (
+        <Text style={styles.errorText}>{destinationError}</Text>
+      ) : null}
 
-      {/* BUTTONS */}
       <TouchableOpacity
         style={[styles.primaryBtn, { backgroundColor: theme.primary }]}
         onPress={handleRideDetails}
@@ -113,7 +146,6 @@ const PlanRide = ({ navigation }) => {
   );
 };
 
-export default PlanRide;
 
 const styles = StyleSheet.create({
   container: {
@@ -176,4 +208,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
   },
+  errorInput: {
+  borderColor: 'red',
+},
+errorText: {
+  color: 'red',
+  fontSize: 14,
+  marginTop: -10,
+  marginBottom: 15,
+  marginLeft: 5,
+},
 });
+
+export default PlanRide;
+
