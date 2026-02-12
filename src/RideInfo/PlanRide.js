@@ -1,9 +1,17 @@
-import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from "react-native";
+import React, { useState, useContext } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { useState } from "react";
+import { ThemeContext } from "../Theme/ThemeContext";
 
 const PlanRide = ({ navigation }) => {
+  const { theme } = useContext(ThemeContext);
 
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
@@ -30,11 +38,12 @@ const PlanRide = ({ navigation }) => {
       return;
     }
     navigation.navigate("RideDetails", { pickup, destination });
-  }
+  };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
 
+      {/* HEADER */}
       <View style={styles.header}>
         <View style={styles.logoRow}>
           <Image
@@ -43,24 +52,39 @@ const PlanRide = ({ navigation }) => {
           />
         </View>
 
-        <Icon name="menu" size={40} color="#00bf63" 
-        onPress={() => navigation.openDrawer()}/>
+        <Icon
+          name="menu"
+          size={40}
+          color={theme.primary}
+          onPress={() => navigation.openDrawer()}
+        />
       </View>
 
-      <Text style={styles.title}>Plan your ride</Text>
+      <Text style={[styles.title, { color: theme.text }]}>
+        Plan your ride
+      </Text>
 
       <View style={[styles.inputBox, pickupError ? styles.errorInput : null]}>
         <Icon name="search" size={22} color="#00bf63" />
+
+      <View
+        style={[
+          styles.inputBox,
+          { borderColor: theme.primary }
+        ]}
+      >
+        <Icon name="search" size={22} color={theme.primary} />
         <TextInput
           placeholder="Choose your location"
-          placeholderTextColor="#666"
-          style={styles.input}
+          placeholderTextColor={theme.text === "#ffffff" ? "#aaa" : "#666"}
+          style={[styles.input, { color: theme.text }]}
           value={pickup}
           onChangeText={(text) => {
             setPickup(text);
             setPickupError("");
           }}
         />
+      </View>
       </View>
 
       {pickupError ? (
@@ -69,10 +93,18 @@ const PlanRide = ({ navigation }) => {
 
       <View style={[styles.inputBox, destinationError ? styles.errorInput : null]}>
         <Icon name="search" size={22} color="#00bf63" />
+     
+      <View
+        style={[
+          styles.inputBox,
+          { borderColor: theme.primary }
+        ]}
+      >
+        <Icon name="search" size={22} color={theme.primary} />
         <TextInput
           placeholder="Destination?"
-          placeholderTextColor="#666"
-          style={styles.input}
+          placeholderTextColor={theme.text === "#ffffff" ? "#aaa" : "#666"}
+          style={[styles.input, { color: theme.text }]}
           value={destination}
           onChangeText={(text) => {
             setDestination(text);
@@ -80,23 +112,36 @@ const PlanRide = ({ navigation }) => {
           }}
         />
       </View>
+      </View>
       {destinationError ? (
         <Text style={styles.errorText}>{destinationError}</Text>
       ) : null}
 
-      <TouchableOpacity style={styles.primaryBtn}
-        onPress= {handleRideDetails}
+      <TouchableOpacity
+        style={[styles.primaryBtn, { backgroundColor: theme.primary }]}
+        onPress={handleRideDetails}
       >
-        <Text style={styles.primaryText}>Book Now</Text>
+        <Text style={[styles.primaryText, { color: theme.background }]}>
+          Book Now
+        </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.primaryBtn}>
-        <Text style={styles.primaryText}>Book Cab For Later</Text>
+      <TouchableOpacity
+        style={[styles.primaryBtn, { backgroundColor: theme.primary }]}
+      >
+        <Text style={[styles.primaryText, { color: theme.background }]}>
+          Book Cab For Later
+        </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.primaryBtnSmall}>
-        <Text style={styles.primaryText}>Saved Places</Text>
+      <TouchableOpacity
+        style={[styles.primaryBtnSmall, { backgroundColor: theme.primary }]}
+      >
+        <Text style={[styles.primaryText, { color: theme.background }]}>
+          Saved Places
+        </Text>
       </TouchableOpacity>
+
     </View>
   );
 };
@@ -105,7 +150,6 @@ const PlanRide = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     padding: 20,
   },
 
@@ -132,7 +176,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 2,
-    borderColor: "#00bf63",
     borderRadius: 12,
     paddingHorizontal: 12,
     height: 55,
@@ -143,11 +186,9 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     marginLeft: 10,
-    color: "#000",
   },
 
   primaryBtn: {
-    backgroundColor: "#00bf63",
     height: 55,
     borderRadius: 12,
     justifyContent: "center",
@@ -156,7 +197,6 @@ const styles = StyleSheet.create({
   },
 
   primaryBtnSmall: {
-    backgroundColor: "#00bf63",
     height: 45,
     borderRadius: 10,
     justifyContent: "center",
@@ -165,7 +205,6 @@ const styles = StyleSheet.create({
   },
 
   primaryText: {
-    color: "#000",
     fontSize: 18,
     fontWeight: "600",
   },
@@ -182,3 +221,4 @@ errorText: {
 });
 
 export default PlanRide;
+
