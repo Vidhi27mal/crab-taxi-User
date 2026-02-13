@@ -1,33 +1,45 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { ThemeContext } from '../Theme/ThemeContext';
 
 export default function ChargedButRideNotCompleted({ navigation }) {
+
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
 
-      <Text style={styles.title}>Charged but Ride Not Completed</Text>
+      <Text style={[styles.title, { color: theme.primary }]}>
+        Charged but Ride Not Completed
+      </Text>
 
-      
-      <View style={styles.card}>
-        <Text style={styles.sectionTitle}>Trip Summary</Text>
-
-        
-
-        
-
-        
+      {/* Trip Summary */}
+      <View style={[
+        styles.card,
+        { borderColor: theme.primary, backgroundColor: theme.card }
+      ]}>
+        <Text style={[styles.sectionTitle, { color: theme.text }]}>
+          Trip Summary
+        </Text>
       </View>
 
       {/* Amount Charged */}
-      <View style={styles.card}>
-        <Text style={styles.sectionTitle}>Amount Charged : $__</Text>
-
-        
+      <View style={[
+        styles.card,
+        { borderColor: theme.primary, backgroundColor: theme.card }
+      ]}>
+        <Text style={[styles.sectionTitle, { color: theme.text }]}>
+          Amount Charged : $__
+        </Text>
       </View>
 
       {/* Button */}
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Request Refund</Text>
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: theme.primary }]}
+      >
+        <Text style={[styles.buttonText, { color: theme.buttonText }]}>
+          Request Refund
+        </Text>
       </TouchableOpacity>
 
     </View>
@@ -35,42 +47,47 @@ export default function ChargedButRideNotCompleted({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex:1, backgroundColor:'#fff', padding:20 },
-  title: { fontSize:30, fontWeight:'700', color:'#00bf63', marginBottom:20 , textAlign:'center'},
+  container: {
+    flex: 1,
+    padding: 20
+  },
+
+  title: {
+    fontSize: 30,
+    fontWeight: '700',
+    marginBottom: 20,
+    textAlign: 'center'
+  },
 
   card: {
-    borderWidth:1,
-    borderColor:'#00bf63',
-    borderRadius:12,
-    padding:15,
-    marginBottom:15,
-    marginTop:20
+    borderWidth: 1,
+    borderRadius: 12,
+    padding: 15,
+    marginBottom: 15,
+    marginTop: 20
   },
+
   sectionTitle: {
-    fontWeight:'700',
-    marginBottom:10,
-    color:'black',
-    fontSize:18
+    fontWeight: '700',
+    marginBottom: 10,
+    fontSize: 18
   },
+
   row: {
-    flexDirection:'row',
-    justifyContent:'space-between',
-    marginBottom:8
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8
   },
-  label: { color:'#555', },
-  value: { color:'#111', fontWeight:'500' },
-  total: { fontWeight:'700', color:'#00bf63' },
 
   button: {
-    backgroundColor:'#00bf63',
-    padding:15,
-    borderRadius:10,
-    marginTop:380
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 'auto'   // ✅ better than marginTop:380
   },
+
   buttonText: {
-    color:'black',
-    fontSize:15,
-    textAlign:'center',
-    fontWeight:'600'
+    fontSize: 15,
+    textAlign: 'center',
+    fontWeight: '600'
   }
 });

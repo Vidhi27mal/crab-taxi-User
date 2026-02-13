@@ -1,127 +1,162 @@
-import React, { useState } from 'react';
-import {View,Text,TouchableOpacity,StyleSheet
+import React, { useState, useContext } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ThemeContext } from '../Theme/ThemeContext';
 
 export default function ChooseMap({ navigation }) {
-    const [selectedMap, setSelectedMap] = useState(null);
 
-    return (
-        <View style={styles.container}>
-           
-            <Text style={styles.title}>Choose a Map</Text>
+  const { theme } = useContext(ThemeContext);
+  const [selectedMap, setSelectedMap] = useState(null);
 
-            <TouchableOpacity
-                style={styles.option}
-                onPress={() => setSelectedMap('google')}
-            >
-                <Ionicons
-                    name={
-                        selectedMap === 'google'
-                            ? 'radio-button-on'
-                            : 'radio-button-off'
-                    }
-                    size={22}
-                    color="#2ECC71"
-                />
-                <Text style={styles.optionText}>Google Maps</Text>
-            </TouchableOpacity>
+  return (
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
 
-            {/* Apple Maps */}
-            <TouchableOpacity
-                style={styles.option}
-                onPress={() => setSelectedMap('apple')}
-            >
-                <Ionicons
-                    name={
-                        selectedMap === 'apple'
-                            ? 'radio-button-on'
-                            : 'radio-button-off'
-                    }
-                    size={22}
-                    color="#2ECC71"
-                />
-                <Text style={styles.optionText}>Apple Map</Text>
-            </TouchableOpacity>
+      <Text style={[styles.title, { color: theme.primary }]}>
+        Choose a Map
+      </Text>
 
-            {/* Default Maps */}
-            <TouchableOpacity
-                style={styles.option}
-                onPress={() => setSelectedMap('default')}
-            >
-                <Ionicons
-                    name={
-                        selectedMap === 'default'
-                            ? 'radio-button-on'
-                            : 'radio-button-off'
-                    }
-                    size={22}
-                    color="#2ECC71"
-                />
-                <Text style={styles.optionText}>Default Map</Text>
-            </TouchableOpacity>
+      {/* Google Map */}
+      <TouchableOpacity
+        style={[
+          styles.option,
+          {
+            borderColor: theme.primary,
+            backgroundColor: theme.card
+          }
+        ]}
+        onPress={() => setSelectedMap('google')}
+      >
+        <Ionicons
+          name={
+            selectedMap === 'google'
+              ? 'radio-button-on'
+              : 'radio-button-off'
+          }
+          size={22}
+          color={theme.primary}
+        />
+        <Text style={[styles.optionText, { color: theme.text }]}>
+          Google Maps
+        </Text>
+      </TouchableOpacity>
 
-            {/* Apply Button */}
-            <TouchableOpacity
-                style={[
-                    styles.applyButton,
-                    !selectedMap
-                ]}
-                disabled={!selectedMap}
-                onPress={() => {
-                    console.log('Selected Map:', selectedMap);
-                  navigation.navigate('MapViewUpdate' , {
-                    selectedMap: selectedMap,
-                  });
-                }}
-            >
-                <Text style={styles.applyText} >
-                Apply</Text>
-            </TouchableOpacity>
-        </View>
-    );
+      {/* Apple Map */}
+      <TouchableOpacity
+        style={[
+          styles.option,
+          {
+            borderColor: theme.primary,
+            backgroundColor: theme.card
+          }
+        ]}
+        onPress={() => setSelectedMap('apple')}
+      >
+        <Ionicons
+          name={
+            selectedMap === 'apple'
+              ? 'radio-button-on'
+              : 'radio-button-off'
+          }
+          size={22}
+          color={theme.primary}
+        />
+        <Text style={[styles.optionText, { color: theme.text }]}>
+          Apple Map
+        </Text>
+      </TouchableOpacity>
+
+      {/* Default Map */}
+      <TouchableOpacity
+        style={[
+          styles.option,
+          {
+            borderColor: theme.primary,
+            backgroundColor: theme.card
+          }
+        ]}
+        onPress={() => setSelectedMap('default')}
+      >
+        <Ionicons
+          name={
+            selectedMap === 'default'
+              ? 'radio-button-on'
+              : 'radio-button-off'
+          }
+          size={22}
+          color={theme.primary}
+        />
+        <Text style={[styles.optionText, { color: theme.text }]}>
+          Default Map
+        </Text>
+      </TouchableOpacity>
+
+      {/* Apply Button */}
+      <TouchableOpacity
+        style={[
+          styles.applyButton,
+          {
+            backgroundColor: selectedMap
+              ? theme.primary
+              : theme.card
+          }
+        ]}
+        disabled={!selectedMap}
+        onPress={() => {
+          navigation.navigate('MapViewUpdate', {
+            selectedMap: selectedMap,
+          });
+        }}
+      >
+        <Text style={[styles.applyText, { color: theme.text }]}>
+          Apply
+        </Text>
+      </TouchableOpacity>
+
+    </View>
+  );
 }
+
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        padding: 20
-    },
+  container: {
+    flex: 1,
+    padding: 20
+  },
 
-    title: {
-        fontSize: 33,
-        fontWeight: '600',
-        marginBottom: 25,
-        color: '#2ECC71'
-    },
+  title: {
+    fontSize: 33,
+    fontWeight: '600',
+    marginBottom: 25,
+  },
 
-    option: {
-        borderWidth: 2,
-        borderRadius:10,
-        borderColor: '#2ECC71',
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: 15,
-        marginTop: 30
-    },
+  option: {
+    borderWidth: 2,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 15,
+    marginTop: 30,
+    paddingHorizontal: 15
+  },
 
-    optionText: {
-        fontSize: 16,
-        marginLeft: 12,
-        color: '#000'
-    },
+  optionText: {
+    fontSize: 16,
+    marginLeft: 12,
+  },
 
-    applyButton: {
-        marginTop: 200,
-        backgroundColor: '#2ECC71',
-        paddingVertical: 14,
-        borderRadius: 8,
-        alignItems: 'center'
-    },
+  applyButton: {
+    marginTop: 200,
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center'
+  },
 
-    applyText: {
-        color: 'black',
-        fontSize: 16,
-        fontWeight: '600'
-    }
+  applyText: {
+    fontSize: 16,
+    fontWeight: '600'
+  }
 });
