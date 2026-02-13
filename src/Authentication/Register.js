@@ -1,11 +1,13 @@
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { ThemeContext } from "../Theme/ThemeContext";
 
 
 const Register = ({ navigation }) => {
+  const { theme } = useContext(ThemeContext);
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -62,18 +64,17 @@ const Register = ({ navigation }) => {
       return;
     }
 
-    // clear form fields
     setUsername("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
 
     navigation.navigate("OtpScreen", { email });
-
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
         <ScrollView contentContainerStyle={styles.scrollContent} >
 
           <View style={styles.content}>
@@ -87,84 +88,64 @@ const Register = ({ navigation }) => {
             </View>
 
             <View style={styles.formContainer}>
-              <Text style={styles.subtitle}>Create an Account</Text>
+              <Text style={[styles.subtitle, { color: theme.primary }]}>
+                Create an Account
+              </Text>
 
-              <View style={[styles.inputContainer, usernameError ? styles.errorInput : null]}>
+              {/* Username */}
+              <View style={styles.inputContainer}>
                 <TextInput
-                  style={styles.input}
+                  style={[styles.input, { color: theme.text }]}
                   placeholder="Username"
-                  placeholderTextColor="#000"
+                  placeholderTextColor={theme.text}
                   value={username}
-                  onChangeText={(text) => {
-                    setUsername(text);
-                    setUsernameError('');
-                  }}
-                  autoCapitalize="none"
-                  autoCorrect={false}
+                  onChangeText={setUsername}
                 />
-                <Icon name="account-check" size={22} color="#00bf63" style={styles.inputIcon} />
+                <Icon name="account-check" size={22} color={theme.primary} style={styles.inputIcon} />
               </View>
 
-              {usernameError ? (
-                <Text style={styles.errorText}>{usernameError}</Text>
-              ) : null}
-
-
-              <View style={[styles.inputContainer, emailError ? styles.errorInput : null]}>
+              {/* Email */}
+              <View style={styles.inputContainer}>
                 <TextInput
                   placeholder="Email"
-                  placeholderTextColor="#000"
+                  placeholderTextColor={theme.text}
                   value={email}
-                  onChangeText={(text) => {
-                    setEmail(text);
-                    setEmailError('');
-                  }}
+                  onChangeText={setEmail}
                   keyboardType="email-address"
-                  style={styles.input}
+                  style={[styles.input, { color: theme.text }]}
                 />
-                <Icon name="email-check" size={22} color="#00bf63" style={styles.inputIcon} />
+                <Icon name="email-check" size={22} color={theme.primary} style={styles.inputIcon} />
               </View>
-              {emailError ? (
-                <Text style={styles.errorText}>{emailError}</Text>
-              ) : null}
 
-              <View style={[styles.inputContainer, passwordError ? styles.errorInput : null]}>
+              {/* Password */}
+              <View style={styles.inputContainer}>
                 <TextInput
                   placeholder="Password"
-                  placeholderTextColor="#000"
+                  placeholderTextColor={theme.text}
                   secureTextEntry={!showPassword}
                   value={password}
-                  onChangeText={(text) => {
-                    setPassword(text);
-                    setPasswordError('');
-                  }}
-                  style={styles.input}
+                  onChangeText={setPassword}
+                  style={[styles.input, { color: theme.text }]}
                 />
                 <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                   <Icon
                     name={showPassword ? "eye-off" : "eye"}
                     size={22}
-                    color="#00bf63"
+                    color={theme.primary}
                     style={styles.inputIcon}
                   />
                 </TouchableOpacity>
               </View>
 
-              {passwordError ? (
-                <Text style={styles.errorText}>{passwordError}</Text>
-              ) : null}
-
-              <View style={[styles.inputContainer, confirmPasswordError ? styles.errorInput : null]}>
+              {/* Confirm Password */}
+              <View style={styles.inputContainer}>
                 <TextInput
                   placeholder="Confirm Password"
-                  placeholderTextColor="#000"
+                  placeholderTextColor={theme.text}
                   secureTextEntry={!showConfirmPassword}
                   value={confirmPassword}
-                  onChangeText={(text) => {
-                    setConfirmPassword(text);
-                    setConfirmPasswordError('');
-                  }}
-                  style={styles.input}
+                  onChangeText={setConfirmPassword}
+                  style={[styles.input, { color: theme.text }]}
                 />
                 <TouchableOpacity
                   onPress={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -172,19 +153,22 @@ const Register = ({ navigation }) => {
                   <Icon
                     name={showConfirmPassword ? "eye-off" : "eye"}
                     size={22}
-                    color="#00bf63"
+                    color={theme.primary}
                     style={styles.inputIcon}
                   />
                 </TouchableOpacity>
               </View>
-              {confirmPasswordError ? (
-                <Text style={styles.errorText}>{confirmPasswordError}</Text>
-              ) : null}
-              <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
-                <Text style={styles.loginButtonText}>SIGN UP</Text>
-              </TouchableOpacity>
-            </View>
 
+              <TouchableOpacity
+                style={[styles.loginButton, { backgroundColor: theme.primary }]}
+                onPress={handleRegister}
+              >
+                <Text style={[styles.loginButtonText, { color: theme.buttonText }]}>
+                  SIGN UP
+                </Text>
+              </TouchableOpacity>
+
+            </View>
           </View>
         </ScrollView>
     </SafeAreaView>
@@ -194,7 +178,6 @@ const Register = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   scrollContent: {
     flexGrow: 1,
@@ -202,10 +185,10 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   logoContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 20,
     marginBottom: 20,
   },
@@ -214,23 +197,22 @@ const styles = StyleSheet.create({
     height: 100,
   },
   formContainer: {
-    width: '100%',
+    width: "100%",
     maxWidth: 400,
     borderRadius: 12,
     paddingVertical: 30,
   },
   subtitle: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#00bf63',
+    fontWeight: "600",
     marginBottom: 24,
-    textAlign: 'left',
+    textAlign: "left",
   },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
-    borderColor: '#00bf63',
+    borderColor: "#00bf63",
     borderRadius: 8,
     marginBottom: 15,
   },
@@ -242,19 +224,16 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 14,
     fontSize: 16,
-    color: '#333',
   },
   loginButton: {
-    backgroundColor: '#00bf63',
     borderRadius: 8,
     padding: 16,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 12,
   },
   loginButtonText: {
-    color: '#000',
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   errorInput: {
   borderColor: 'red',
