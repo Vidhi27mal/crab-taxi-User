@@ -1,19 +1,33 @@
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView, Alert, } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
 
   const handleLogin = () => {
-    if (!username || !password) {
-      Alert.alert("Error", "All fields are required");
+    let valid = true;
+    if (!username) {
+      setUsernameError('Username is required');
+      valid = false;
+    } else {
+      setUsernameError('');
+    }
+    if (!password) {
+      setPasswordError('Password is required');
+      valid = false;
+    } else {
+      setPasswordError('');
+    }
+    if (!valid) {
       return;
     }
+
     // clear form
     setUsername('');
     setPassword('');
@@ -28,65 +42,72 @@ const Login = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboardAvoidingView}
-      >
-        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
 
+      <ScrollView contentContainerStyle={styles.scrollContent} >
 
-          <View style={styles.content}>
-     
-            <View style={styles.logoContainer}>
-              <Image
-                source={require('../assets/logo.png')} 
-                style={styles.logo}
-                resizeMode="contain"
-              />
-            </View>
+        <View style={styles.content}>
 
-            <View style={styles.formContainer}>
-              <Text style={styles.subtitle}>Enter your login Details</Text>
-
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter Username"
-                  placeholderTextColor="#000"
-                  value={username}
-                  onChangeText={setUsername}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                />
-                <Icon name="person" size={22} color="#00bf63" style={styles.inputIcon} />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter Password"
-                  placeholderTextColor="#000"
-                  value={password}
-                  onChangeText={setPassword}
-                  autoCapitalize="none"
-                  disableFullscreenUI={true}
-                />
-                <Icon name="lock-closed" size={22} color="#00bf63" style={styles.inputIcon} />
-              </View>
-
-
-              <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-                <Text style={styles.loginButtonText}>Log in</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
-                <Text style={styles.loginButtonText}>New? Register Here</Text>
-              </TouchableOpacity>
-            </View>
-
+          <View style={styles.logoContainer}>
+            <Image
+              source={require('../assets/logo.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+
+          <View style={styles.formContainer}>
+            <Text style={styles.subtitle}>Enter your login Details</Text>
+
+            <View style={[styles.inputContainer, usernameError ? styles.errorInput : null]}>
+
+              <TextInput
+                style={styles.input}
+                placeholder="Enter Username"
+                placeholderTextColor="#000"
+                value={username}
+                onChangeText={(text) => {
+                  setUsername(text);
+                  setUsernameError('');
+                }}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <Icon name="person" size={22} color="#00bf63" style={styles.inputIcon} />
+            </View>
+            {usernameError ? (
+              <Text style={styles.errorText}>{usernameError}</Text>
+            ) : null}
+
+            <View style={[styles.inputContainer, passwordError ? styles.errorInput : null]}>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter Password"
+                placeholderTextColor="#000"
+                value={password}
+                onChangeText={(text) => {
+                  setPassword(text);
+                  setPasswordError('');
+                }}
+                autoCapitalize="none"
+                disableFullscreenUI={true}
+              />
+              <Icon name="lock-closed" size={22} color="#00bf63" style={styles.inputIcon} />
+            </View>
+            {passwordError ? (
+              <Text style={styles.errorText}>{passwordError}</Text>
+            ) : null}
+
+            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+              <Text style={styles.loginButtonText}>Log in</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
+              <Text style={styles.loginButtonText}>New? Register Here</Text>
+            </TouchableOpacity>
+          </View>
+
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -95,9 +116,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  keyboardAvoidingView: {
-    flex: 1,
   },
   scrollContent: {
     flexGrow: 1,
@@ -160,6 +178,16 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
+  errorInput: {
+    borderColor: 'red',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginTop: -20,
+    marginBottom: 15,
+    marginLeft: 5,
+  },
 });
 
 export default Login;
