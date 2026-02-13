@@ -10,7 +10,7 @@ import PickupMap from '../RideInfo/PickupMap';
 import ShareOtp from '../RideInfo/ShareOtp';
 import RideCompleted from '../RideInfo/RideCompleted';
 import DriverTip from '../RideInfo/DriverTip'; 
-import Summary from '../screens/Summary';
+
 
 const Stack = createStackNavigator();
 
@@ -25,7 +25,7 @@ const HomeStackNavigator = () => {
             <Stack.Screen name="ShareOtp" component={ShareOtp}></Stack.Screen>
             <Stack.Screen name="RideCompleted" component={RideCompleted}></Stack.Screen>
             <Stack.Screen name="DriverTip" component={DriverTip}></Stack.Screen>
-            <Stack.Screen name="Summary" component={Summary}></Stack.Screen>
+            
     </Stack.Navigator>
   )
 }

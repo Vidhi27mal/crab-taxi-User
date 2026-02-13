@@ -1,105 +1,202 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import React, { useState, useContext } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import { ThemeContext } from "../Theme/ThemeContext";
 
-  const DriverTip = ({ navigation }) => {
-  const [selectedTip, setSelectedTip] = useState(null);
-  const [coupon, setCoupon] = useState('');
+const BASE_PRICE = 40;
+const COUPON_DISCOUNT = 5;
 
-  const tips = ['15%', '25%', '50%', 'No Tip'];
+const SurpriseDriver = ({ navigation }) => {
+  const { theme } = useContext(ThemeContext);
+
+  const [selectedTip, setSelectedTip] = useState(0);
+  const [coupon, setCoupon] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
+
+  const calculateTotal = () => {
+    const tipAmount = (BASE_PRICE * selectedTip) / 100;
+    let total = BASE_PRICE + tipAmount;
+
+    if (couponApplied) {
+      total = total - COUPON_DISCOUNT;
+    }
+    return total;
+  };
+
+  const applyCoupon = () => {
+    if (coupon.trim().length > 0) {
+      setCouponApplied(true);
+    } else {
+      setCouponApplied(false);
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Surprise Driver</Text>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+      
+      <Text style={[styles.title, { color: theme.text }]}>
+        Surprise Driver
+      </Text>
 
-      <Text style={styles.title}>Add Tip</Text>
+      <Text style={[styles.section, { color: theme.text }]}>
+        Add Tip
+      </Text>
 
-      {tips.map((item) => (
+      {[15, 25, 50, 0].map((tip) => (
         <TouchableOpacity
-          key={item}
+          key={tip}
           style={[
             styles.tipBox,
-            selectedTip === item && styles.selectedTip,
+            { borderColor: theme.primary },
+            selectedTip === tip && {
+              backgroundColor: theme.primary,
+            },
           ]}
-          onPress={() => setSelectedTip(item)}
+          onPress={() => setSelectedTip(tip)}
         >
           <Text
             style={[
               styles.tipText,
-              selectedTip === item && { color: '#fff' },
+              { color: selectedTip === tip ? theme.background : theme.text },
             ]}
           >
-            {item}
+            {tip === 0 ? "No Tip" : `${tip}%`}
           </Text>
         </TouchableOpacity>
       ))}
 
-      <TouchableOpacity style={styles.selectBtn}>
-        <Text style={styles.btnText}>Select</Text>
-      </TouchableOpacity>
+      <Text style={[styles.section, { color: theme.text }]}>
+        Have Coupon?
+      </Text>
 
-      <Text style={styles.title}>Have Coupon?</Text>
+      <View style={styles.couponRow}>
+        <TextInput
+          placeholder="Enter coupon"
+          placeholderTextColor={theme.text}
+          style={[
+            styles.input,
+            {
+              borderColor: theme.primary,
+              color: theme.text,
+            },
+          ]}
+          value={coupon}
+          onChangeText={setCoupon}
+        />
 
-      <TextInput
-        placeholder="Paste coupon code"
-        value={coupon}
-        onChangeText={setCoupon}
-        style={styles.input}
-      />
+        <TouchableOpacity
+          style={[styles.applyBtn, { backgroundColor: theme.primary }]}
+          onPress={applyCoupon}
+        >
+          <Text style={{ color: theme.background, fontWeight: "600" }}>
+            Apply
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {couponApplied && (
+        <View
+          style={[
+            styles.successBox,
+            { backgroundColor: theme.primary },
+          ]}
+        >
+          <Text style={{ color: theme.background, textAlign: "center" }}>
+            Coupon Applied Successfully
+          </Text>
+        </View>
+      )}
 
       <TouchableOpacity
-        style={styles.confirmBtn}
-        onPress={() =>
-          navigation.navigate('Summary', {
-            selectedTip,
-            coupon,
-          })
-        }
+        style={[styles.totalBox, { backgroundColor: theme.primary }]}
+        onPress={() => navigation.navigate("PaymentMethod")}
       >
-        <Text style={styles.btnText}>Confirm</Text>
+        <Text style={{ color: theme.background, fontWeight: "600" }}>
+          TOTAL PRICE
+        </Text>
+
+        <Text
+          style={{
+            color: theme.background,
+            fontSize: 20,
+            fontWeight: "700",
+          }}
+        >
+          ${calculateTotal()}
+        </Text>
       </TouchableOpacity>
+
     </View>
   );
 };
 
+export default SurpriseDriver;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#fff' },
-  header: { fontSize: 20, fontWeight: 'bold', marginBottom: 20 },
-  title: { fontSize: 16, marginVertical: 10 },
-  tipBox: {
-    borderWidth: 2,
-    borderColor: '#00bf63',
-    borderRadius: 10,
-    padding: 15,
-    marginVertical: 6,
+  container: {
+    flex: 1,
+    padding: 20,
   },
-  selectedTip: { backgroundColor: '#00bf63' },
-  tipText: { fontSize: 16, color: '#000' },
-  selectBtn: {
-    backgroundColor: '#00bf63',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginVertical: 15,
-  },
-  confirmBtn: {
-    backgroundColor: '#00bf63',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
+
+  title: {
+    fontSize: 22,
+    fontWeight: "600",
+    textAlign: "center",
+    marginBottom: 20,
     marginTop: 20,
   },
-  btnText: {
-    color: '#000', 
-    fontSize: 17, 
-    fontWeight: 'bold' 
+
+  section: {
+    fontSize: 16,
+    fontWeight: "500",
+    marginVertical: 20,
   },
-  input: {
+
+  tipBox: {
     borderWidth: 2,
-    borderColor: '#00bf63',
-    borderRadius: 10,
+    padding: 14,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+
+  tipText: {
+    fontSize: 16,
+  },
+
+  couponRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  input: {
+    flex: 1,
+    borderWidth: 1,
     padding: 12,
+    borderRadius: 6,
+  },
+
+  applyBtn: {
+    marginLeft: 10,
+    padding: 12,
+    borderRadius: 6,
+  },
+
+  successBox: {
+    padding: 12,
+    borderRadius: 6,
+    marginTop: 10,
+  },
+
+  totalBox: {
+    marginTop: 50,
+    padding: 16,
+    borderRadius: 8,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
-
-export default DriverTip;

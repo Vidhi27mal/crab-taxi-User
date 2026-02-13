@@ -1,9 +1,17 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert,} from "react-native";
+import React, { useState, useContext } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Ionicons";
+import { ThemeContext } from "../Theme/ThemeContext";
 
 const SelectVehicle = ({ navigation }) => {
+  const { theme } = useContext(ThemeContext);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
 
   const vehicles = [
@@ -13,21 +21,27 @@ const SelectVehicle = ({ navigation }) => {
   ];
 
   const handleConfirm = () => {
-    if (!selectedVehicle){
+    if (!selectedVehicle) {
       Alert.alert("Error", "Please select a vehicle");
       return;
     }
     navigation.navigate("MatchingDriver");
-  }
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.background }]}
+    >
       {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-back" size={28} color="#00bf63" />
+          <Icon name="arrow-back" size={28} color={theme.primary} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Choose Vehicle</Text>
+
+        <Text style={[styles.headerTitle, { color: theme.text }]}>
+          Choose Vehicle
+        </Text>
+
         <View style={{ width: 28 }} />
       </View>
 
@@ -37,23 +51,46 @@ const SelectVehicle = ({ navigation }) => {
           key={item.id}
           style={[
             styles.card,
-            selectedVehicle === item.id && styles.cardSelected,
+            {
+              borderColor: theme.primary,
+              backgroundColor:
+                selectedVehicle === item.id
+                  ? theme.selectedCard
+                  : theme.card,
+            },
           ]}
           onPress={() => setSelectedVehicle(item.id)}
         >
-          <Text style={styles.vehicleText}>{item.name}</Text>
+          <Text style={[styles.vehicleText, { color: theme.text }]}>
+            {item.name}
+          </Text>
 
-          <View style={styles.priceIcon}>
-            <Text style={styles.priceText}>$</Text>
+          <View
+            style={[
+              styles.priceIcon,
+              { borderColor: theme.primary },
+            ]}
+          >
+            <Text style={[styles.priceText, { color: theme.primary }]}>
+              $
+            </Text>
           </View>
         </TouchableOpacity>
       ))}
 
       {/* CONFIRM BUTTON */}
-      <TouchableOpacity style={styles.confirmBtn}
+      <TouchableOpacity
+        style={[styles.confirmBtn, { backgroundColor: theme.primary }]}
         onPress={handleConfirm}
       >
-        <Text style={styles.confirmText}>Confirm</Text>
+        <Text
+          style={[
+            styles.confirmText,
+            { color: theme.buttonText },
+          ]}
+        >
+          Confirm
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

@@ -1,49 +1,53 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ThemeContext } from '../Theme/ThemeContext'; // adjust path if needed
 
-export default function RideCancelConfirmed({navigation}) {
+export default function RideCancelConfirmed({ navigation }) {
+  const { colors } = useContext(ThemeContext);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.iconWrapper}>
-        <Ionicons name="checkmark" size={90} color="#fff" />
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      
+      <View style={[styles.iconWrapper, { backgroundColor: colors.primary }]}>
+        <Ionicons name="checkmark" size={90} color={colors.background} />
       </View>
 
-      <Text style={styles.title}>Password Changed</Text>
-      <Text style={styles.subtitle}>Successfully</Text>
+      <Text style={[styles.title, { color: colors.text }]}>
+        Password Changed
+      </Text>
+
+      <Text style={[styles.subtitle, { color: colors.text }]}>
+        Successfully
+      </Text>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-  
-    iconWrapper: {
-      width: 120,
-      height: 120,
-      borderRadius: 60,
-      backgroundColor: '#2ECC71',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: 25
-    },
-  
-    title: {
-      fontSize: 26,
-      fontWeight: 'bold',
-      color: '#000'
-    },
-  
-    subtitle: {
-      fontSize: 26,
-      fontWeight: 'bold',
-      color: '#000'
-    }
-  });
-     
-  
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  iconWrapper: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 25,
+  },
+
+  title: {
+    fontSize: 26,
+    fontWeight: 'bold',
+  },
+
+  subtitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+  },
+});

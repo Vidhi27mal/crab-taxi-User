@@ -43,7 +43,6 @@ const PlanRide = ({ navigation }) => {
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
 
-      {/* HEADER */}
       <View style={styles.header}>
         <View style={styles.logoRow}>
           <Image
@@ -64,16 +63,9 @@ const PlanRide = ({ navigation }) => {
         Plan your ride
       </Text>
 
-      <View style={[styles.inputBox, pickupError ? styles.errorInput : null]}>
-        <Icon name="search" size={22} color="#00bf63" />
-
-      <View
-        style={[
-          styles.inputBox,
-          { borderColor: theme.primary }
-        ]}
-      >
+      <View style={[styles.inputBox, { borderColor: theme.primary }, pickupError ? styles.errorInput : null]}>
         <Icon name="search" size={22} color={theme.primary} />
+
         <TextInput
           placeholder="Choose your location"
           placeholderTextColor={theme.text === "#ffffff" ? "#aaa" : "#666"}
@@ -85,22 +77,14 @@ const PlanRide = ({ navigation }) => {
           }}
         />
       </View>
-      </View>
 
       {pickupError ? (
         <Text style={styles.errorText}>{pickupError}</Text>
       ) : null}
 
-      <View style={[styles.inputBox, destinationError ? styles.errorInput : null]}>
+      <View style={[styles.inputBox,{ borderColor: theme.primary }, destinationError ? styles.errorInput : null]}>
         <Icon name="search" size={22} color="#00bf63" />
      
-      <View
-        style={[
-          styles.inputBox,
-          { borderColor: theme.primary }
-        ]}
-      >
-        <Icon name="search" size={22} color={theme.primary} />
         <TextInput
           placeholder="Destination?"
           placeholderTextColor={theme.text === "#ffffff" ? "#aaa" : "#666"}
@@ -111,7 +95,6 @@ const PlanRide = ({ navigation }) => {
             setDestinationError("");
           }}
         />
-      </View>
       </View>
       {destinationError ? (
         <Text style={styles.errorText}>{destinationError}</Text>
@@ -221,4 +204,3 @@ errorText: {
 });
 
 export default PlanRide;
-

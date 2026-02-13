@@ -1,30 +1,42 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import { ThemeContext } from '../Theme/ThemeContext';
 
 const CustomDrawer = ({ navigation }) => {
+
+  const { theme, toggleTheme, isDark } = useContext(ThemeContext);
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
 
       <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-        <TouchableOpacity onPress={() => navigation.closeDrawer()}
-          style={styles.closeBtn}>
+        
+        <TouchableOpacity 
+          onPress={() => navigation.closeDrawer()}
+          style={styles.closeBtn}
+        >
           <Icon name="close" size={30} color="red" />
         </TouchableOpacity>
 
-        <Icon name="person" style={styles.profileIcon} />
+        <Icon name="person" style={[styles.profileIcon, { color: theme.text }]} />
       </View>
-      <Text style={styles.name}>Gourav</Text>
+
+      <Text style={[styles.name, { color: theme.text }]}>Gourav</Text>
 
       {["Profile", "Inbox", "Activity", "Wallet", "Help", "Settings"].map(
         (item) => (
-          <TouchableOpacity key={item} style={styles.menuItem}
+          <TouchableOpacity 
+            key={item} 
+            style={styles.menuItem}
             onPress={() => {
               navigation.navigate(item);
               navigation.closeDrawer();
-            }}>
-            <Text style={styles.menuText}>{item}</Text>
+            }}
+          >
+            <Text style={[styles.menuText, { color: theme.text }]}>
+              {item}
+            </Text>
           </TouchableOpacity>
         )
       )}
@@ -38,10 +50,15 @@ const CustomDrawer = ({ navigation }) => {
         <Text style={styles.emergencyText}> Emergency</Text>
       </TouchableOpacity>
 
-      <View style={styles.night}>
-        <Icon name="moon" size={20} />
-        <Text style={{ marginLeft: 6 }}>NIGHT</Text>
-      </View>
+      {/* 🌙 NIGHT MODE BUTTON */}
+      <TouchableOpacity 
+        onPress={toggleTheme}
+        style={styles.night}
+      >
+        <Text style={{ color: theme.text, fontSize: 18 }}>
+          {isDark ? '☀ Day Mode' : '🌙 Night Mode'}
+        </Text>
+      </TouchableOpacity>
 
     </View>
   )
@@ -50,7 +67,6 @@ const CustomDrawer = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     padding: 20,
     borderLeftWidth: 4,
     borderTopWidth: 4,
@@ -60,14 +76,12 @@ const styles = StyleSheet.create({
   },
 
   closeBtn: {
-    alignSelf: "flex-start",
     borderWidth: 3,
     borderColor: "#00bf63",
   },
 
   profileIcon: {
     fontSize: 50,
-    color: "#00bf63",
     borderWidth: 2,
     borderColor: "#00bf63",
     padding: 10,
@@ -77,7 +91,6 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 24,
     fontWeight: "700",
-    color: "#00bf63",
     textAlign: "center",
     marginVertical: 15,
   },
@@ -116,10 +129,9 @@ const styles = StyleSheet.create({
   },
 
   night: {
-    flexDirection: "row",
     justifyContent: "center",
-    marginTop: 15,
     alignItems: "center",
+    marginTop: 25,
   },
 });
 

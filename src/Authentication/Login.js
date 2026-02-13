@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView, Alert, } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +15,7 @@ const Login = ({ navigation }) => {
       Alert.alert("Error", "All fields are required");
       return;
     }
-    // clear form
+  
     setUsername('');
     setPassword('');
 

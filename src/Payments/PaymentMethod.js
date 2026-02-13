@@ -1,91 +1,136 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Touchable } from 'react-native'
-
+import { ThemeContext } from '../Theme/ThemeContext';
 
 const PaymentMethod = ({ navigation }) => {
+
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.header} onPress={() => navigation.navigate("Activity")}>
-        <Icon name="close" style={styles.closeIcon} />
-        <Text style={styles.headerText}>Payment Method</Text>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+
+      {/* Header */}
+      <TouchableOpacity
+        style={styles.header}
+        onPress={() => navigation.navigate("Activity")}
+      >
+        <Icon
+          name="close"
+          size={28}
+          color={theme.primary}
+          style={{ borderWidth: 2, borderColor: theme.primary, padding: 4 }}
+        />
+        <Text style={[styles.headerText, { color: theme.primary }]}>
+          Payment Method
+        </Text>
       </TouchableOpacity>
-        <View>
-             <Text style={styles.middleText}>Choose One</Text>
-            <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("BankAccount")}>
-                <Text style={styles.itemText}>Bank Transfer</Text>
-                <Icon name="notifications-outline" style={styles.iconStyle} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item} onPress={() => navigation.navigate("DebitCard")}>
-                <Text style={styles.itemText}>Debit Card</Text>
-                <Icon name="notifications-outline" style={styles.iconStyle} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item} >
-                <Text style={styles.itemText}>E - Transfer</Text>
-                <Icon name="notifications-outline" style={styles.iconStyle} />
-            </TouchableOpacity>
-            
-        </View>
+
+      <View>
+        <Text style={[styles.middleText, { color: theme.text }]}>
+          Choose One
+        </Text>
+
+        {/* Bank Transfer */}
+        <TouchableOpacity
+          style={[
+            styles.item,
+            { borderColor: theme.primary }
+          ]}
+          onPress={() => navigation.navigate("BankAccount")}
+        >
+          <Text style={[styles.itemText, { color: theme.text }]}>
+            Bank Transfer
+          </Text>
+          <Icon
+            name="card-outline"
+            size={24}
+            color={theme.primary}
+          />
+        </TouchableOpacity>
+
+        {/* Debit Card */}
+        <TouchableOpacity
+          style={[
+            styles.item,
+            { borderColor: theme.primary }
+          ]}
+          onPress={() => navigation.navigate("DebitCard")}
+        >
+          <Text style={[styles.itemText, { color: theme.text }]}>
+            Debit Card
+          </Text>
+          <Icon
+            name="card-outline"
+            size={24}
+            color={theme.primary}
+          />
+        </TouchableOpacity>
+
+        {/* E-Transfer */}
+        <TouchableOpacity
+          style={[
+            styles.item,
+            { borderColor: theme.primary }
+          ]}
+        >
+          <Text style={[styles.itemText, { color: theme.text }]}>
+            E - Transfer
+          </Text>
+          <Icon
+            name="swap-horizontal-outline"
+            size={24}
+            color={theme.primary}
+          />
+        </TouchableOpacity>
+
+      </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
+  container: {
     flex: 1,
     paddingVertical: 40,
     paddingHorizontal: 20,
-    backgroundColor: '#fff',
-    },
-    header: {
+  },
+
+  header: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 40,
-    },
-    closeIcon: {
-   fontSize: 30,
-   color: 'red',
-   fontWeight: '700',
-   borderWidth: 3,
-    borderColor: '#00bf63',
-    },
-    headerText: {
+  },
+
+  headerText: {
     flex: 1,
-    paddingHorizontal: 50,
-    fontSize: 20,
+    textAlign: 'center',
+    fontSize: 22,
     fontWeight: '700',
-    color: '#00bf63',
-   },
-    middleText: {
+  },
+
+  middleText: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#111',
     marginBottom: 20,
     textAlign: 'center',
-    },
-   item : {
+  },
+
+  item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 15,
-    borderWidth: 3,
-    borderColor: '#00bf63',
+    borderWidth: 2,
     borderRadius: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     marginBottom: 20,
-    borderBottomColor: '#00bf63',
-    borderBottomWidth: 3,
+  },
 
-   },
-    itemText: {
+  itemText: {
     fontSize: 18,
     fontWeight: '600',
-    },
-    iconStyle: {
-    fontSize: 26,
-    color: '#00bf63',
-    }
+  },
+});
 
-})
-export default PaymentMethod
+export default PaymentMethod;
