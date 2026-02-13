@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Touchable } from 'react-native'
 
 
 const Etransfer = ({ navigation }) => {

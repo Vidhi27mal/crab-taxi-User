@@ -16,7 +16,7 @@ const wallet = ({navigation}) => {
             <Text style={styles.balance}>$12.00</Text>
         </View>
 
-        <TouchableOpacity style={styles.rechargeBtn}>
+        <TouchableOpacity style={styles.rechargeBtn} onPress={() => navigation.navigate('PaymentMethod')}>
             <Text style={styles.rechargeText}>RECHARGE YOUR WALLET</Text>
         </TouchableOpacity>
 

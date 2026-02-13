@@ -35,6 +35,8 @@ import Privacy from '../screens/Privacy'
 import Safety from '../screens/Safety'
 import Emergency from '../Safety/Emergency'
 import LiveTracking from '../RideIssue/LiveTracking'
+import EmailSupport from '../ContactSupport/EmailSupport';
+import Etransfer from '../Payments/Etransfer';
 
 const Drawer = createDrawerNavigator();
 
@@ -62,6 +64,7 @@ const DrawerNavigator = () => {
         <Drawer.Screen name="PaymentMethod" component={PaymentMethod} />
         <Drawer.Screen name="BankAccount" component={BankAccount} options={{ headerTitle: '' }} />
         <Drawer.Screen name="DebitCard" component={DebitCard} options={{ headerTitle: '' }} />
+        <Drawer.Screen name="Etransfer" component={Etransfer} options={{ headerTitle: '' }} />
         
         <Drawer.Screen
           name="Help"
@@ -187,6 +190,12 @@ const DrawerNavigator = () => {
         <Drawer.Screen
           name="LiveTracking"
           component={LiveTracking}
+          options={{ headerTitle: '' }}
+        />
+
+        <Drawer.Screen
+          name="EmailSupport"
+          component={EmailSupport}
           options={{ headerTitle: '' }}
         />
     </Drawer.Navigator>

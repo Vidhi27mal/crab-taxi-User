@@ -18,7 +18,7 @@ export default function ContactSupport({ navigation }) {
         <Text style={styles.optionText}>Call With Us</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.option}   >
+      <TouchableOpacity style={styles.option}  onPress={() => navigation.navigate('EmailSupport')} >
         <Ionicons name="mail-outline" size={24} color="#000" />
         <Text style={styles.optionText}>Email Support</Text>
       </TouchableOpacity>

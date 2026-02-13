@@ -1,11 +1,11 @@
 
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 
-const Register = ({ navigation } ) => {
+const Register = ({ navigation }) => {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -14,28 +14,51 @@ const Register = ({ navigation } ) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const [usernameError, setUsernameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   const handleRegister = () => {
-    if (!username || !email || !password || !confirmPassword) {
-      Alert.alert("Error", "All fields are required");
-      return;
+    let valid = true;
+    if (!username) {
+      setUsernameError("Username is required");
+      valid = false;
+    } else {
+      setUsernameError("");
     }
-
-    if (!validateEmail(email)) {
-      Alert.alert("Error", "Invalid email format");
-      return;
+    if (!email) {
+      setEmailError("Email is required");
+      valid = false;
+    } else if (!validateEmail(email)) {
+      setEmailError("Invalid email format");
+      valid = false;
+    } else {
+      setEmailError("");
     }
-
-    if (password.length < 6) {
-      Alert.alert("Error", "Password must be at least 6 characters");
-      return;
+    if (!password) {
+      setPasswordError("Password is required");
+      valid = false;
+    } else if (password.length < 6) {
+      setPasswordError("Password must be at least 6 characters");
+      valid = false;
+    } else {
+      setPasswordError("");
     }
-
-    if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
+    if (!confirmPassword) {
+      setConfirmPasswordError("Please confirm your password");
+      valid = false;
+    } else if (confirmPassword !== password) {
+      setConfirmPasswordError("Passwords do not match");
+      valid = false;
+    } else {
+      setConfirmPasswordError("");
+    }
+    if (!valid) {
       return;
     }
 
@@ -51,101 +74,119 @@ const Register = ({ navigation } ) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.keyboardAvoidingView}
-          >
-            <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
+        <ScrollView contentContainerStyle={styles.scrollContent} >
 
-        <View style={styles.content}>
-        
-          <View style={styles.logoContainer}>
-            <Image
-              source={require('../assets/logo.png')} 
-              style={styles.logo}
-              resizeMode="contain"
-            />
-          </View>
+          <View style={styles.content}>
 
-          <View style={styles.formContainer}>
-            <Text style={styles.subtitle}>Create an Account</Text>
-
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.input}
-                placeholder="Username"
-                placeholderTextColor="#000"
-                value={username}
-                onChangeText={setUsername}
-                autoCapitalize="none"
-                autoCorrect={false}
+            <View style={styles.logoContainer}>
+              <Image
+                source={require('../assets/logo.png')}
+                style={styles.logo}
+                resizeMode="contain"
               />
-              <Icon name="account-check" size={22} color="#00bf63" style={styles.inputIcon} />
             </View>
 
+            <View style={styles.formContainer}>
+              <Text style={styles.subtitle}>Create an Account</Text>
 
-            <View style={styles.inputContainer}>
-              <TextInput
-                placeholder="Email"
-                placeholderTextColor="#000"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                style={styles.input}
-              />
-              <Icon name="email-check" size={22} color="#00bf63" style={styles.inputIcon} />
-            </View>
-
-
-            <View style={styles.inputContainer}>
-              <TextInput
-                placeholder="Password"
-                placeholderTextColor="#000"
-                secureTextEntry={!showPassword}
-                value={password}
-                onChangeText={setPassword}
-                style={styles.input}
-              />
-              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                <Icon
-                  name={showPassword ? "eye-off" : "eye"}
-                  size={22}
-                  color="#00bf63"
-                  style={styles.inputIcon}
+              <View style={[styles.inputContainer, usernameError ? styles.errorInput : null]}>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Username"
+                  placeholderTextColor="#000"
+                  value={username}
+                  onChangeText={(text) => {
+                    setUsername(text);
+                    setUsernameError('');
+                  }}
+                  autoCapitalize="none"
+                  autoCorrect={false}
                 />
+                <Icon name="account-check" size={22} color="#00bf63" style={styles.inputIcon} />
+              </View>
+
+              {usernameError ? (
+                <Text style={styles.errorText}>{usernameError}</Text>
+              ) : null}
+
+
+              <View style={[styles.inputContainer, emailError ? styles.errorInput : null]}>
+                <TextInput
+                  placeholder="Email"
+                  placeholderTextColor="#000"
+                  value={email}
+                  onChangeText={(text) => {
+                    setEmail(text);
+                    setEmailError('');
+                  }}
+                  keyboardType="email-address"
+                  style={styles.input}
+                />
+                <Icon name="email-check" size={22} color="#00bf63" style={styles.inputIcon} />
+              </View>
+              {emailError ? (
+                <Text style={styles.errorText}>{emailError}</Text>
+              ) : null}
+
+              <View style={[styles.inputContainer, passwordError ? styles.errorInput : null]}>
+                <TextInput
+                  placeholder="Password"
+                  placeholderTextColor="#000"
+                  secureTextEntry={!showPassword}
+                  value={password}
+                  onChangeText={(text) => {
+                    setPassword(text);
+                    setPasswordError('');
+                  }}
+                  style={styles.input}
+                />
+                <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                  <Icon
+                    name={showPassword ? "eye-off" : "eye"}
+                    size={22}
+                    color="#00bf63"
+                    style={styles.inputIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+
+              {passwordError ? (
+                <Text style={styles.errorText}>{passwordError}</Text>
+              ) : null}
+
+              <View style={[styles.inputContainer, confirmPasswordError ? styles.errorInput : null]}>
+                <TextInput
+                  placeholder="Confirm Password"
+                  placeholderTextColor="#000"
+                  secureTextEntry={!showConfirmPassword}
+                  value={confirmPassword}
+                  onChangeText={(text) => {
+                    setConfirmPassword(text);
+                    setConfirmPasswordError('');
+                  }}
+                  style={styles.input}
+                />
+                <TouchableOpacity
+                  onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  <Icon
+                    name={showConfirmPassword ? "eye-off" : "eye"}
+                    size={22}
+                    color="#00bf63"
+                    style={styles.inputIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+              {confirmPasswordError ? (
+                <Text style={styles.errorText}>{confirmPasswordError}</Text>
+              ) : null}
+              <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
+                <Text style={styles.loginButtonText}>SIGN UP</Text>
               </TouchableOpacity>
             </View>
 
-
-            <View style={styles.inputContainer}>
-              <TextInput
-                placeholder="Confirm Password"
-                placeholderTextColor="#000"
-                secureTextEntry={!showConfirmPassword}
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-                style={styles.input}
-              />
-              <TouchableOpacity
-                onPress={() => setShowConfirmPassword(!showConfirmPassword)}
-              >
-                <Icon
-                  name={showConfirmPassword ? "eye-off" : "eye"}
-                  size={22}
-                  color="#00bf63"
-                  style={styles.inputIcon}
-                />
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
-              <Text style={styles.loginButtonText}>SIGN UP</Text>
-            </TouchableOpacity>
           </View>
-
-        </View>
         </ScrollView>
-      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -154,9 +195,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  keyboardAvoidingView: {
-    flex: 1,
   },
   scrollContent: {
     flexGrow: 1,
@@ -218,7 +256,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
   },
-
+  errorInput: {
+  borderColor: 'red',
+},
+errorText: {
+  color: 'red',
+  fontSize: 14,
+  marginTop: -10,
+  marginBottom: 15,
+  marginLeft: 5,
+},
 });
 
 export default Register;

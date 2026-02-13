@@ -21,7 +21,7 @@ const PaymentMethod = ({ navigation }) => {
                 <Text style={styles.itemText}>Debit Card</Text>
                 <Icon name="notifications-outline" style={styles.iconStyle} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.item} >
+            <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('Etransfer')}>
                 <Text style={styles.itemText}>E - Transfer</Text>
                 <Icon name="notifications-outline" style={styles.iconStyle} />
             </TouchableOpacity>
