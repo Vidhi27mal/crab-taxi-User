@@ -10,15 +10,15 @@ const PaymentMethod = ({ navigation }) => {
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
 
-      {/* Header */}
       <TouchableOpacity
         style={styles.header}
-        onPress={() => navigation.navigate("Activity")}
+        onPress={() => navigation.goBack()
+        }
       >
         <Icon
           name="close"
           size={28}
-          color={theme.primary}
+          color={"red"}
           style={{ borderWidth: 2, borderColor: theme.primary, padding: 4 }}
         />
         <Text style={[styles.headerText, { color: theme.primary }]}>
@@ -31,7 +31,6 @@ const PaymentMethod = ({ navigation }) => {
           Choose One
         </Text>
 
-        {/* Bank Transfer */}
         <TouchableOpacity
           style={[
             styles.item,
@@ -49,7 +48,7 @@ const PaymentMethod = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        {/* Debit Card */}
+ 
         <TouchableOpacity
           style={[
             styles.item,
@@ -67,7 +66,7 @@ const PaymentMethod = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        {/* E-Transfer */}
+
         <TouchableOpacity
           style={[
             styles.item,
