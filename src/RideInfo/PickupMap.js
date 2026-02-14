@@ -21,7 +21,7 @@ const PickupMap = ({ navigation }) => {
     longitude: 72.8777,
   };
 
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(5);
 
   useEffect(() => {
     if (timeLeft === 0) {
@@ -43,7 +43,6 @@ const PickupMap = ({ navigation }) => {
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.background }]}
     >
-      {/* ETA BOX */}
       <View
         style={[
           styles.etaBox,
@@ -55,7 +54,6 @@ const PickupMap = ({ navigation }) => {
         </Text>
       </View>
 
-      {/* MAP */}
       <View style={styles.mapWrapper}>
         <MapView
           style={styles.map}
@@ -79,7 +77,6 @@ const PickupMap = ({ navigation }) => {
         </MapView>
       </View>
 
-      {/* DRIVER CARD */}
       <View
         style={[
           styles.driverCard,
