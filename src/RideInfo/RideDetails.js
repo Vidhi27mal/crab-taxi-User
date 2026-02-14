@@ -1,12 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { ThemeContext } from "../Theme/ThemeContext";
@@ -20,32 +13,52 @@ const RideDetails = ({ navigation, route }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
+  const [dateError, setDateError] = useState('')
+  const [timeError, setTimeError] = useState('')
+
   const handleNext = () => {
-    if (!date || !time) {
-      Alert.alert("Error", "Please select date and time");
+    let valid = true;
+    if (!date) {
+      setDateError('Date is required');
+      valid = false;
+    } else {
+      setDateError('')
+    }
+    if (!time) {
+      setTimeError('Time is required');
+      valid = false;
+    } else {
+      setTimeError('');
+    }
+    if (!valid) {
       return;
     }
     navigation.navigate("SelectVehicle");
   };
 
   const onDateChange = (event, selectedDate) => {
-    if (event.type === "set") setDate(selectedDate);
+    if (event.type === "set") {
+      setDate(selectedDate);
+      setDateError('')
+    }
     setShowDatePicker(false);
   };
 
   const onTimeChange = (event, selectedTime) => {
-    if (event.type === "set") setTime(selectedTime);
+    if (event.type === "set"){
+      setTime(selectedTime);
+      setTimeError('')
+    } 
     setShowTimePicker(false);
   };
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      
+
       <Text style={[styles.title, { color: theme.text }]}>
         Plan your ride
       </Text>
 
-      {/* PICKUP */}
       <View
         style={[
           styles.inputBox,
@@ -62,7 +75,6 @@ const RideDetails = ({ navigation, route }) => {
         />
       </View>
 
-      {/* DESTINATION */}
       <View
         style={[
           styles.inputBox,
@@ -79,11 +91,11 @@ const RideDetails = ({ navigation, route }) => {
         />
       </View>
 
-      {/* DATE */}
       <TouchableOpacity
         style={[
           styles.inputBox,
-          { borderColor: theme.primary, backgroundColor: theme.card }
+          { borderColor: theme.primary, backgroundColor: theme.card },
+          dateError ? styles.errorInput : null
         ]}
         onPress={() => setShowDatePicker(true)}
       >
@@ -98,11 +110,15 @@ const RideDetails = ({ navigation, route }) => {
         </Text>
       </TouchableOpacity>
 
-      {/* TIME */}
+      {dateError ? (
+        <Text style={styles.errorText}>{dateError}</Text>
+      ) : null}
+
       <TouchableOpacity
         style={[
           styles.inputBox,
-          { borderColor: theme.primary, backgroundColor: theme.card }
+          { borderColor: theme.primary, backgroundColor: theme.card },
+          timeError ? styles.errorInput : null
         ]}
         onPress={() => setShowTimePicker(true)}
       >
@@ -115,24 +131,26 @@ const RideDetails = ({ navigation, route }) => {
         >
           {time
             ? time.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })
+              hour: "2-digit",
+              minute: "2-digit",
+            })
             : "Choose Time"}
         </Text>
       </TouchableOpacity>
+      {timeError ? (
+        <Text style={styles.errorText}>{timeError}</Text>
+      ) : null}
 
-      {/* NEXT BUTTON */}
       <TouchableOpacity
         style={[styles.nextBtn, { backgroundColor: theme.primary }]}
         onPress={handleNext}
       >
-        <Text style={[styles.nextText, { color: theme.background }]}>
+        <Text style={[styles.nextText, { color: theme.text }]}>
           Go Next
         </Text>
       </TouchableOpacity>
 
-      {/* DATE PICKER */}
+
       {showDatePicker && (
         <DateTimePicker
           value={date || new Date()}
@@ -142,7 +160,6 @@ const RideDetails = ({ navigation, route }) => {
         />
       )}
 
-      {/* TIME PICKER */}
       {showTimePicker && (
         <DateTimePicker
           value={time || new Date()}
@@ -186,13 +203,13 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 12,
     fontSize: 16,
-    color: "#333",
+    color: "#000",
   },
 
   placeholderText: {
     marginLeft: 12,
     fontSize: 16,
-    color: "#666",
+    color: "#000",
   },
 
   nextBtn: {
@@ -208,6 +225,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
     color: "black",
+  },
+  errorInput: {
+    borderColor: 'red',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginTop: -10,
+    marginBottom: 15,
+    marginLeft: 5,
   },
 });
 
