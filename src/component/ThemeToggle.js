@@ -8,7 +8,7 @@ export default function ThemeToggle() {
   return (
     <TouchableOpacity style={styles.button} onPress={toggleTheme}>
       <Text style={styles.text}>
-        {isDark ? '🌞 Day Mode' : '🌙 Night Mode'}
+        {isDark ? 'Day Mode' : 'Night Mode'}
       </Text>
     </TouchableOpacity>
   );

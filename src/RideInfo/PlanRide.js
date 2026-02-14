@@ -205,4 +205,3 @@ errorText: {
 });
 
 export default PlanRide;
-

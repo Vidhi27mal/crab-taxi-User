@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { View, Text, StyleSheet, Animated, Dimensions } from "react-native";
+import { ThemeContext } from "../Theme/ThemeContext";
 
 const { width } = Dimensions.get("window");
 
 const MatchingDriver = ({ navigation }) => {
+  const { theme } = useContext(ThemeContext);
   const progress = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -13,9 +15,8 @@ const MatchingDriver = ({ navigation }) => {
       useNativeDriver: false,
     }).start();
 
-    // Auto navigate
     const timer = setTimeout(() => {
-      navigation.replace("PickupMap"); 
+      navigation.replace("PickupMap");
     }, 6000);
 
     return () => clearTimeout(timer);
@@ -27,51 +28,79 @@ const MatchingDriver = ({ navigation }) => {
   });
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Matching with Driver</Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme.background },
+      ]}
+    >
+      <Text
+        style={[
+          styles.title,
+          { color: theme.text },
+        ]}
+      >
+        Matching with Driver
+      </Text>
 
-      <View style={styles.progressContainer}>
+      <View
+        style={[
+          styles.progressContainer,
+          { borderColor: theme.text },
+        ]}
+      >
         <Animated.View
-          style={[styles.progressFill, { width: progressWidth }]}
+          style={[
+            styles.progressFill,
+            {
+              width: progressWidth,
+              backgroundColor: theme.primary,
+            },
+          ]}
         />
       </View>
 
-      <Text style={styles.waitText}>Please Wait (6s)</Text>
+      <Text
+        style={[
+          styles.waitText,
+          { color: theme.text },
+        ]}
+      >
+        Please Wait (6s)
+      </Text>
     </View>
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
+
   title: {
     fontSize: 22,
     fontWeight: "600",
     marginBottom: 30,
-    color: "#000",
   },
+
   progressContainer: {
     width: width * 0.8,
     height: 30,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: "#000",
     overflow: "hidden",
   },
+
   progressFill: {
     height: "100%",
-    backgroundColor: "#00bf63",
     borderRadius: 20,
   },
+
   waitText: {
     marginTop: 20,
     fontSize: 16,
-    color: "#000",
   },
 });
 

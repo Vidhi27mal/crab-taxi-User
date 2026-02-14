@@ -1,125 +1,98 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import React, { useContext } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
+import { ThemeContext } from "../Theme/ThemeContext";
 
-export default function CallSupportScreen() {
-    const handleCall = () => {
-        Linking.openURL('tel:+911234567890');
-    };
+export default function PrivacyPolicyScreen() {
+  const { theme } = useContext(ThemeContext);
 
-    return (
-        <View style={styles.container}>
+  return (
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme.background },
+      ]}
+    >
+      <Text
+        style={[
+          styles.header,
+          { color: theme.primary },
+        ]}
+      >
+        Privacy Policy
+      </Text>
 
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: 40 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View
+          style={[
+            styles.card,
+            { borderColor: theme.primary },
+          ]}
+        >
+          <Text
+            style={[
+              styles.text,
+              { color: theme.text },
+            ]}
+          >
+            We use this information to operate the app, pay you,
+            verify your identity, and ensure safety. We share
+            some information with riders (like your location
+            during a trip and your car details) and with our
+            business partners (like payment processors) only
+            when necessary. We use strong security to protect
+            your data.
+          </Text>
 
-            <Text style={styles.header}>Privacy Policy</Text>
-
-
-            <View style={styles.card}>
-                <Text style={styles.question}>We use this information to ope
-                    rate the app, pay you, verify
-                    your identity, and ensure
-                    safety. We share some
-                    information with riders (like
-                    your location during a trip and
-                    your car details) and with our
-                    business partners (like
-                    payment processors) only
-                    when necessary. We use strong
-                    security to protect your data.
-                    </Text>
-                   <Text style={styles.question}>
-                    You can always ask to see the
-                    information we have about you
-                    and request corrections. If you
-                    have a problem, contact our
-                    Privacy Officer first. You can
-                    also complain to the federal
-                    Privacy Commissioner.</Text>
-
-
-            </View>
-
-
-            
+          <Text
+            style={[
+              styles.text,
+              { color: theme.text },
+            ]}
+          >
+            You can always ask to see the information we have
+            about you and request corrections. If you have a
+            problem, contact our Privacy Officer first. You can
+            also complain to the federal Privacy Commissioner.
+          </Text>
         </View>
-    );
-
-
+      </ScrollView>
+    </View>
+  );
 }
 
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-        paddingHorizontal: 20,
-        paddingTop: 40
-    },
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 40,
+  },
 
-    header: {
-        textAlign: 'center',
-        fontSize: 30,
-        fontWeight: '600',
-        color: '#22B573',
-        marginBottom: 25
-    },
+  header: {
+    textAlign: 'center',
+    fontSize: 28,
+    fontWeight: '600',
+    marginBottom: 25,
+  },
 
-    card: {
-        borderWidth: 3,
-        borderColor: '#22B573',
-        borderRadius: 12,
-        padding: 20,
-        marginTop: 30
-    },
+  card: {
+    borderWidth: 2,
+    borderRadius: 14,
+    padding: 20,
+    marginTop: 20,
+  },
 
-    question: {
-        fontSize: 20,
-        fontWeight: '500',
-        color: '#000',
-        marginBottom: 10,
-        marginTop: 18,
-    },
-
-    info: {
-        fontSize: 18,
-        color: '#000',
-        marginBottom: 20,
-        lineHeight: 20,
-        marginTop: 20,
-        marginBottom: 50,
-    },
-
-    bold: {
-        fontWeight: '700'
-    },
-
-    label: {
-        fontSize: 18,
-        color: '#000',
-        marginBottom: 4
-    },
-
-    phone: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#000'
-    },
-
-    button: {
-        backgroundColor: '#22B573',
-        paddingVertical: 14,
-        borderRadius: 10,
-        position: 'absolute',
-        bottom: 25,
-        left: 20,
-        right: 20,
-        alignItems: 'center',
-        marginTop: -40
-    },
-
-    buttonText: {
-        color: 'black',
-        fontSize: 18,
-        fontWeight: '600',
-
-    }
+  text: {
+    fontSize: 16,
+    fontWeight: '500',
+    lineHeight: 24,
+    marginBottom: 18,
+  },
 });

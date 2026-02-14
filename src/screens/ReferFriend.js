@@ -1,115 +1,134 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import React, { useContext } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+import { ThemeContext } from "../Theme/ThemeContext";
 
-export default function CallSupportScreen({navigation}) {
-  const handleCall = () => {
-    Linking.openURL('tel:+911234567890');
-  };
+export default function ReferFriendScreen({ navigation }) {
+  const { theme } = useContext(ThemeContext);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme.background },
+      ]}
+    >
+      <Text
+        style={[
+          styles.header,
+          { color: theme.primary },
+        ]}
+      >
+        Refer A Friend
+      </Text>
 
-   
-      <Text style={styles.header}>Refer A Friend</Text>
-
-   
-      <View style={styles.card}>
-        <Text style={styles.question}>Invite Friends and earn ride credits!</Text>
-
-        <Text style={styles.info}>
-          Your referral Code:{'\n'}
-          <Text style={styles.bold}>ABCD1234</Text> 
+      <View
+        style={[
+          styles.card,
+          { borderColor: theme.primary },
+        ]}
+      >
+        <Text
+          style={[
+            styles.question,
+            { color: theme.text },
+          ]}
+        >
+          Invite friends and earn ride credits!
         </Text>
 
-        
+        <Text
+          style={[
+            styles.info,
+            { color: theme.text },
+          ]}
+        >
+          Your Referral Code:
+        </Text>
+
+        <Text
+          style={[
+            styles.code,
+            { color: theme.primary },
+          ]}
+        >
+          ABCD1234
+        </Text>
       </View>
 
-   
-      <TouchableOpacity style={styles.button}
-      onPress={() => navigation.navigate('FriendLink')} >
-        <Text style={styles.buttonText}>Share invite</Text>
+      <TouchableOpacity
+        style={[
+          styles.button,
+          { backgroundColor: theme.primary },
+        ]}
+        onPress={() => navigation.navigate('FriendLink')}
+      >
+        <Text style={styles.buttonText}>
+          Share Invite
+        </Text>
       </TouchableOpacity>
-
     </View>
   );
-
-
 }
 
-
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#FFFFFF',
-      paddingHorizontal: 20,
-      paddingTop: 40
-    },
-  
-    header: {
-      textAlign: 'center',
-      fontSize: 30,
-      fontWeight: '600',
-      color: '#22B573',
-      marginBottom: 25
-    },
-  
-    card: {
-      borderWidth: 3,
-      borderColor: '#22B573',
-      borderRadius: 12,
-      padding: 20,
-      marginTop: 30   
-    },
-  
-    question: {
-      fontSize: 18,
-      fontWeight: '500',
-      color: '#000',
-      marginBottom: 40,
-      marginTop:18,
-    },
-  
-    info: {
-      fontSize: 18,
-      color: '#000',
-      marginBottom: 20,
-      lineHeight: 20,
-      marginTop:20,
-      marginBottom:50,
-    },
-  
-    bold: {
-      fontWeight: '700'
-    },
-  
-    label: {
-      fontSize: 18,
-      color: '#000',
-      marginBottom: 4
-    },
-  
-    phone: {
-      fontSize: 18,
-      fontWeight: '600',
-      color: '#000'
-    },
-  
-    button: {
-      backgroundColor: '#22B573',
-      paddingVertical: 14,
-      borderRadius: 10,
-      position: 'absolute',
-      bottom: 25,
-      left: 20,
-      right: 20,
-      alignItems: 'center',
-      marginTop:-40
-    },
-  
-    buttonText: {
-      color: 'black',
-      fontSize: 18,
-      fontWeight: '600',
-     
-    }
-  });
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 40,
+  },
+
+  header: {
+    textAlign: 'center',
+    fontSize: 28,
+    fontWeight: '600',
+    marginBottom: 30,
+  },
+
+  card: {
+    borderWidth: 2,
+    borderRadius: 14,
+    padding: 24,
+    marginTop: 20,
+  },
+
+  question: {
+    fontSize: 18,
+    fontWeight: '500',
+    marginBottom: 30,
+    textAlign: 'center',
+  },
+
+  info: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+
+  code: {
+    fontSize: 22,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginTop: 10,
+  },
+
+  button: {
+    height: 55,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    left: 20,
+    right: 20,
+    bottom: 30,
+  },
+
+  buttonText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#000',
+  },
+});

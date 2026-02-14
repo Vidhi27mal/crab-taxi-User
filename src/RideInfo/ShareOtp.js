@@ -1,23 +1,53 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity,} from "react-native";
+import React, { useContext } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { ThemeContext } from "../Theme/ThemeContext";
 
 const ShareOtp = ({ navigation }) => {
+  const { theme } = useContext(ThemeContext);
+
   const otp = ["1", "2", "3", "4"];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Your Cab is Here</Text>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.background }]}
+    >
+      <View
+        style={[
+          styles.header,
+          { backgroundColor: theme.primary },
+        ]}
+      >
+        <Text
+          style={[
+            styles.headerText,
+            { color: theme.buttonText },
+          ]}
+        >
+          Your Cab is Here
+        </Text>
       </View>
 
       <View style={styles.content}>
-        <Text style={styles.title}>Share Your OTP!</Text>
+        <Text
+          style={[
+            styles.title,
+            { color: theme.text },
+          ]}
+        >
+          Share Your OTP!
+        </Text>
 
         <View style={styles.otpRow}>
           {otp.map((digit, index) => (
-            <Text key={index} style={styles.otpText}>
+            <Text
+              key={index}
+              style={[
+                styles.otpText,
+                { color: theme.text },
+              ]}
+            >
               {digit}
             </Text>
           ))}
@@ -26,32 +56,41 @@ const ShareOtp = ({ navigation }) => {
         <Icon
           name="thumb-up-outline"
           size={140}
-          color="#00bf63"
+          color={theme.primary}
           style={{ marginTop: 30 }}
         />
       </View>
 
       <TouchableOpacity
-        style={styles.button}
+        style={[
+          styles.button,
+          { borderColor: theme.primary },
+        ]}
         onPress={() => navigation.navigate("RideCompleted")}
       >
-        <Text style={styles.buttonText}>Enjoy Your Ride</Text>
+        <Text
+          style={[
+            styles.buttonText,
+            { color: theme.primary },
+          ]}
+        >
+          Enjoy Your Ride
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
+export default ShareOtp;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     paddingHorizontal: 20,
     paddingVertical: 40,
   },
 
   header: {
-    backgroundColor: "#00bf63",
     borderRadius: 14,
     paddingVertical: 14,
     alignItems: "center",
@@ -59,7 +98,6 @@ const styles = StyleSheet.create({
   },
 
   headerText: {
-    color: "#000",
     fontSize: 18,
     fontWeight: "700",
   },
@@ -90,7 +128,6 @@ const styles = StyleSheet.create({
 
   button: {
     borderWidth: 2,
-    borderColor: "#00bf63",
     borderRadius: 14,
     paddingVertical: 14,
     alignItems: "center",
@@ -102,5 +139,3 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 });
-
-export default ShareOtp;

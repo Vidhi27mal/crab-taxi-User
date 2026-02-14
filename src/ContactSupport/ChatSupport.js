@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,12 @@ import {
   FlatList
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ThemeContext } from '../Theme/ThemeContext';
 
 export default function ChatSupport() {
+
+  const { theme } = useContext(ThemeContext);
+
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
     { id: '1', text: 'Hello! How can we help you?', from: 'support' }
@@ -29,15 +33,19 @@ export default function ChatSupport() {
     <View
       style={[
         styles.messageBox,
-        item.from === 'user' ? styles.userMsg : styles.supportMsg
+        item.from === 'user'
+          ? { backgroundColor: theme.primary, alignSelf: 'flex-end' }
+          : { backgroundColor: theme.card, alignSelf: 'flex-start' }
       ]}
     >
-      <Text style={styles.messageText}>{item.text}</Text>
+      <Text style={[styles.messageText, { color: theme.text }]}>
+        {item.text}
+      </Text>
     </View>
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
 
       <FlatList
         data={messages}
@@ -46,18 +54,28 @@ export default function ChatSupport() {
         contentContainerStyle={{ paddingVertical: 10 }}
       />
 
-      <View style={styles.inputContainer}>
+      <View style={[styles.inputContainer, { borderColor: theme.border }]}>
         <TextInput
           placeholder="Type your message..."
+          placeholderTextColor={theme.placeholder}
           value={message}
           onChangeText={setMessage}
-          style={styles.input}
+          style={[
+            styles.input,
+            {
+              borderColor: theme.border,
+              color: theme.text,
+              backgroundColor: theme.card
+            }
+          ]}
         />
 
-        <TouchableOpacity style={styles.sendBtn} onPress={sendMessage}>
-          <Ionicons name="send" size={20} color="#fff" />
+        <TouchableOpacity
+          style={[styles.sendBtn, { backgroundColor: theme.primary }]}
+          onPress={sendMessage}
+        >
+          <Ionicons name="send" size={20} color={theme.buttonText} />
         </TouchableOpacity>
-       
       </View>
 
     </View>
@@ -65,56 +83,40 @@ export default function ChatSupport() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'white',
-      paddingHorizontal: 15
-    },
-  
-    messageBox: {
-      maxWidth: '75%',
-      padding: 12,
-      borderRadius: 10,
-      marginVertical: 6
-    },
-  
-    userMsg: {
-      alignSelf: 'flex-end',
-      backgroundColor: '#000'
-    },
-  
-    supportMsg: {
-      alignSelf: 'flex-start',
-      backgroundColor: 'grey'
-    },
-  
-    messageText: {
-      color: '#fff',
-      
-    },
-  
-    inputContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      borderTopWidth: 1,
-      borderColor: '#ddd',
-      paddingVertical: 10
-    },
-  
-    input: {
-      flex: 1,
-      borderWidth: 1,
-      borderColor: '#ddd',
-      borderRadius: 25,
-      paddingHorizontal: 15,
-      paddingVertical: 8,
-      marginRight: 10
-    },
-  
-    sendBtn: {
-      backgroundColor: '#000',
-      padding: 12,
-      borderRadius: 25
-    }
-  });
+  container: {
+    flex: 1,
+    paddingHorizontal: 15
+  },
 
+  messageBox: {
+    maxWidth: '75%',
+    padding: 12,
+    borderRadius: 10,
+    marginVertical: 6
+  },
+
+  messageText: {
+    fontSize: 15,
+  },
+
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTopWidth: 1,
+    paddingVertical: 10
+  },
+
+  input: {
+    flex: 1,
+    borderWidth: 1,
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    marginRight: 10
+  },
+
+  sendBtn: {
+    padding: 12,
+    borderRadius: 25
+  }
+});

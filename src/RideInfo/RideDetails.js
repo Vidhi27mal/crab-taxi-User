@@ -1,10 +1,20 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert,} from "react-native";
+import React, { useState, useContext } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { ThemeContext } from "../Theme/ThemeContext";
 
 const RideDetails = ({ navigation, route }) => {
   const { pickup, destination } = route.params;
+  const { theme } = useContext(ThemeContext);
+
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -14,49 +24,56 @@ const RideDetails = ({ navigation, route }) => {
     if (!date || !time) {
       Alert.alert("Error", "Please select date and time");
       return;
-    } 
-    navigation.navigate("SelectVehicle");
-  }
-
-  // DATE CHANGE
-  const onDateChange = (event, selectedDate) => {
-    if (event.type === "set") {
-      setDate(selectedDate);
     }
+    navigation.navigate("SelectVehicle");
+  };
+
+  const onDateChange = (event, selectedDate) => {
+    if (event.type === "set") setDate(selectedDate);
     setShowDatePicker(false);
   };
 
-  // TIME CHANGE
   const onTimeChange = (event, selectedTime) => {
-    if (event.type === "set") {
-      setTime(selectedTime);
-    }
+    if (event.type === "set") setTime(selectedTime);
     setShowTimePicker(false);
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Plan your ride</Text>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+      
+      <Text style={[styles.title, { color: theme.text }]}>
+        Plan your ride
+      </Text>
 
       {/* PICKUP */}
-      <View style={styles.inputBox}>
-        <Icon name="search" size={22} color="#00bf63" />
+      <View
+        style={[
+          styles.inputBox,
+          { borderColor: theme.primary, backgroundColor: theme.card }
+        ]}
+      >
+        <Icon name="search" size={22} color={theme.primary} />
         <TextInput
           placeholder="Choose your location"
-          placeholderTextColor="#666"
-          style={styles.input}
+          placeholderTextColor={theme.placeholder}
+          style={[styles.input, { color: theme.text }]}
           value={pickup}
           editable={false}
         />
       </View>
 
       {/* DESTINATION */}
-      <View style={styles.inputBox}>
-        <Icon name="search" size={22} color="#00bf63" />
+      <View
+        style={[
+          styles.inputBox,
+          { borderColor: theme.primary, backgroundColor: theme.card }
+        ]}
+      >
+        <Icon name="search" size={22} color={theme.primary} />
         <TextInput
           placeholder="Destination?"
-          placeholderTextColor="#666"
-          style={styles.input}
+          placeholderTextColor={theme.placeholder}
+          style={[styles.input, { color: theme.text }]}
           value={destination}
           editable={false}
         />
@@ -64,22 +81,38 @@ const RideDetails = ({ navigation, route }) => {
 
       {/* DATE */}
       <TouchableOpacity
-        style={styles.inputBox}
+        style={[
+          styles.inputBox,
+          { borderColor: theme.primary, backgroundColor: theme.card }
+        ]}
         onPress={() => setShowDatePicker(true)}
       >
-        <Icon name="calendar-outline" size={22} color="#00bf63" />
-        <Text style={styles.placeholderText}>
+        <Icon name="calendar-outline" size={22} color={theme.primary} />
+        <Text
+          style={[
+            styles.placeholderText,
+            { color: date ? theme.text : theme.placeholder }
+          ]}
+        >
           {date ? date.toDateString() : "Choose Date"}
         </Text>
       </TouchableOpacity>
 
       {/* TIME */}
       <TouchableOpacity
-        style={styles.inputBox}
+        style={[
+          styles.inputBox,
+          { borderColor: theme.primary, backgroundColor: theme.card }
+        ]}
         onPress={() => setShowTimePicker(true)}
       >
-        <Icon name="time-outline" size={22} color="#00bf63" />
-        <Text style={styles.placeholderText}>
+        <Icon name="time-outline" size={22} color={theme.primary} />
+        <Text
+          style={[
+            styles.placeholderText,
+            { color: time ? theme.text : theme.placeholder }
+          ]}
+        >
           {time
             ? time.toLocaleTimeString([], {
                 hour: "2-digit",
@@ -89,15 +122,17 @@ const RideDetails = ({ navigation, route }) => {
         </Text>
       </TouchableOpacity>
 
- 
+      {/* NEXT BUTTON */}
       <TouchableOpacity
-        style={styles.nextBtn}
+        style={[styles.nextBtn, { backgroundColor: theme.primary }]}
         onPress={handleNext}
       >
-        <Text style={styles.nextText}>Go Next</Text>
+        <Text style={[styles.nextText, { color: theme.background }]}>
+          Go Next
+        </Text>
       </TouchableOpacity>
 
- 
+      {/* DATE PICKER */}
       {showDatePicker && (
         <DateTimePicker
           value={date || new Date()}
@@ -107,7 +142,7 @@ const RideDetails = ({ navigation, route }) => {
         />
       )}
 
-   
+      {/* TIME PICKER */}
       {showTimePicker && (
         <DateTimePicker
           value={time || new Date()}
@@ -119,8 +154,6 @@ const RideDetails = ({ navigation, route }) => {
     </View>
   );
 };
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -174,7 +207,7 @@ const styles = StyleSheet.create({
   nextText: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#001a0f",
+    color: "black",
   },
 });
 

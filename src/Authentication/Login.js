@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -27,7 +28,6 @@ const Login = ({ navigation }) => {
     if (!valid) {
       return;
     }
-
     // clear form
     setUsername('');
     setPassword('');
