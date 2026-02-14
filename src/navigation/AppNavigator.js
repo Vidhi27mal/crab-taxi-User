@@ -1,8 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack"
 
- import SplashScreen from "../screens/SplashScreen";
-// import WelcomeScreen from '../screens/WelcomeScreen'
+//  import SplashScreen from "../screens/SplashScreen";
+import Welcome from "../screens/Welcome";
 import Login from '../Authentication/Login'
 import Register from '../Authentication/Register'
 import OtpScreen from "../Authentication/OtpScreen";
@@ -14,10 +14,11 @@ const Stack = createStackNavigator();
 export default function AppNavigator() {
   return (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName="Splash" screenOptions={{headerShown:false}}> 
+        <Stack.Navigator initialRouteName="Welcome" screenOptions={{headerShown:false}}> 
 
-             <Stack.Screen name="Splash" component={SplashScreen}></Stack.Screen>
+             {/* <Stack.Screen name="Splash" component={SplashScreen}></Stack.Screen> */}
             
+            <Stack.Screen name="Welcome" component={Welcome}></Stack.Screen>
             <Stack.Screen name="Login" component={Login}></Stack.Screen>
             <Stack.Screen name="Register" component={Register}></Stack.Screen>
             <Stack.Screen name="OtpScreen" component={OtpScreen}></Stack.Screen>

@@ -92,39 +92,53 @@ const Register = ({ navigation }) => {
                 Create an Account
               </Text>
 
-              {/* Username */}
-              <View style={styles.inputContainer}>
+              <View style={[styles.inputContainer, usernameError ? styles.errorInput : null]}>
                 <TextInput
                   style={[styles.input, { color: theme.text }]}
                   placeholder="Username"
                   placeholderTextColor={theme.text}
                   value={username}
-                  onChangeText={setUsername}
+                  onChangeText={(text) => {
+                    setUsername(text);
+                    setUsernameError("");
+                  }}
                 />
                 <Icon name="account-check" size={22} color={theme.primary} style={styles.inputIcon} />
               </View>
+              {usernameError ? (
+                <Text style={styles.errorText}>{usernameError}</Text>
+              ) : null}
 
-              {/* Email */}
-              <View style={styles.inputContainer}>
+
+              <View style={[styles.inputContainer, emailError ? styles.errorInput : null]}>
                 <TextInput
                   placeholder="Email"
                   placeholderTextColor={theme.text}
                   value={email}
-                  onChangeText={setEmail}
+                  onChangeText={(text) => {
+                    setEmail(text);
+                    setEmailError("");
+                  }}
                   keyboardType="email-address"
                   style={[styles.input, { color: theme.text }]}
                 />
                 <Icon name="email-check" size={22} color={theme.primary} style={styles.inputIcon} />
               </View>
+              {emailError ? (
+                <Text style={styles.errorText}>{emailError}</Text>
+              ) : null}
 
-              {/* Password */}
-              <View style={styles.inputContainer}>
+
+              <View style={[styles.inputContainer, passwordError ? styles.errorInput : null]}>
                 <TextInput
                   placeholder="Password"
                   placeholderTextColor={theme.text}
                   secureTextEntry={!showPassword}
                   value={password}
-                  onChangeText={setPassword}
+                  onChangeText={(text) => {
+                    setPassword(text);
+                    setPasswordError("");
+                  }}
                   style={[styles.input, { color: theme.text }]}
                 />
                 <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
@@ -136,15 +150,20 @@ const Register = ({ navigation }) => {
                   />
                 </TouchableOpacity>
               </View>
+              {passwordError ? (
+                <Text style={styles.errorText}>{passwordError}</Text>
+              ) : null}
 
-              {/* Confirm Password */}
-              <View style={styles.inputContainer}>
+              <View style={[ styles.inputContainer, confirmPasswordError ? styles.errorInput : null]}>
                 <TextInput
                   placeholder="Confirm Password"
                   placeholderTextColor={theme.text}
                   secureTextEntry={!showConfirmPassword}
                   value={confirmPassword}
-                  onChangeText={setConfirmPassword}
+                  onChangeText={(text) => {
+                    setConfirmPassword(text);
+                    setConfirmPasswordError("");
+                  }}
                   style={[styles.input, { color: theme.text }]}
                 />
                 <TouchableOpacity
@@ -158,6 +177,10 @@ const Register = ({ navigation }) => {
                   />
                 </TouchableOpacity>
               </View>
+               {confirmPasswordError ? (
+                <Text style={styles.errorText}>{confirmPasswordError}</Text>
+              ) : null}
+
 
               <TouchableOpacity
                 style={[styles.loginButton, { backgroundColor: theme.primary }]}

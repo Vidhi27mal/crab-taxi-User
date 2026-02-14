@@ -28,7 +28,7 @@ const Login = ({ navigation }) => {
     if (!valid) {
       return;
     }
-    // clear form
+    
     setUsername('');
     setPassword('');
 

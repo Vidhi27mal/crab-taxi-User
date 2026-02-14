@@ -104,7 +104,7 @@ const PlanRide = ({ navigation }) => {
         style={[styles.primaryBtn, { backgroundColor: theme.primary }]}
         onPress={handleRideDetails}
       >
-        <Text style={[styles.primaryText, { color: theme.background }]}>
+        <Text style={[styles.primaryText, { color: theme.text }]}>
           Book Now
         </Text>
       </TouchableOpacity>
@@ -112,7 +112,7 @@ const PlanRide = ({ navigation }) => {
       <TouchableOpacity
         style={[styles.primaryBtn, { backgroundColor: theme.primary }]}
       >
-        <Text style={[styles.primaryText, { color: theme.background }]}>
+        <Text style={[styles.primaryText, { color: theme.text }]}>
           Book Cab For Later
         </Text>
       </TouchableOpacity>
@@ -120,7 +120,7 @@ const PlanRide = ({ navigation }) => {
       <TouchableOpacity
         style={[styles.primaryBtnSmall, { backgroundColor: theme.primary }]}
       >
-        <Text style={[styles.primaryText, { color: theme.background }]}>
+        <Text style={[styles.primaryText, { color: theme.text }]}>
           Saved Places
         </Text>
       </TouchableOpacity>
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    paddingVertical:40,
   },
 
   header: {
