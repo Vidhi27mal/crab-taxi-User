@@ -6,13 +6,9 @@ import {
   TextInput
 } from 'react-native'
 import React from 'react'
-<<<<<<< HEAD
-import Icon from 'react-native-vector-icons/Ionicons';
-
-=======
+import { useTheme } from '../theme/theme-context'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useTheme } from '../theme/theme-context'
->>>>>>> de95874 (updated)
 
 const Etransfer = ({ navigation }) => {
 

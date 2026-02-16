@@ -32,7 +32,6 @@ const SelectVehicle = ({ navigation }) => {
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.background }]}
     >
-      {/* HEADER */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon name="arrow-back" size={28} color={theme.primary} />
@@ -45,7 +44,6 @@ const SelectVehicle = ({ navigation }) => {
         <View style={{ width: 28 }} />
       </View>
 
-      {/* VEHICLE LIST */}
       {vehicles.map((item) => (
         <TouchableOpacity
           key={item.id}
@@ -78,7 +76,6 @@ const SelectVehicle = ({ navigation }) => {
         </TouchableOpacity>
       ))}
 
-      {/* CONFIRM BUTTON */}
       <TouchableOpacity
         style={[styles.confirmBtn, { backgroundColor: theme.primary }]}
         onPress={handleConfirm}

@@ -10,7 +10,6 @@ const Wallet = ({ navigation }) => {
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
 
-      {/* Header */}
       <TouchableOpacity
         style={styles.header}
         onPress={() => navigation.goBack()}
@@ -26,7 +25,6 @@ const Wallet = ({ navigation }) => {
         </Text>
       </TouchableOpacity>
 
-      {/* Balance Box */}
       <View
         style={[
           styles.balanceContainer,
@@ -42,7 +40,6 @@ const Wallet = ({ navigation }) => {
         </Text>
       </View>
 
-      {/* Recharge Button */}
       <TouchableOpacity
         style={[
           styles.rechargeBtn,
@@ -54,7 +51,6 @@ const Wallet = ({ navigation }) => {
         </Text>
       </TouchableOpacity>
 
-      {/* Voucher Button */}
       <TouchableOpacity
         style={[
           styles.voucherBtn,
@@ -66,7 +62,6 @@ const Wallet = ({ navigation }) => {
         </Text>
       </TouchableOpacity>
 
-      {/* Transaction History */}
       <Text
         style={[
           styles.transactionHistory,

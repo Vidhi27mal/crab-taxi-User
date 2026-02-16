@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { setLastPaymentMethod } from '../utils/PaymentStore';
 import { ThemeContext } from '../Theme/ThemeContext';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function BankAccount({ navigation }) {
 
@@ -20,9 +21,47 @@ export default function BankAccount({ navigation }) {
   const [transitNo, setTransitNo] = useState('');
   const [institutionNo, setInstitutionNo] = useState('');
 
+  const [bankNameError, setBankNameError] = useState('');
+  const [holderNameError, setHolderNameError] = useState('');
+  const [accountNumberError, setAccountNumberError] = useState('');
+  const [transitNoError, setTransitNoError] = useState('');
+  const [institutionNoError, setInstitutionNoError] = useState('');
+
   const handleProceed = () => {
-    if (!bankName || !holderName || !accountNumber || !transitNo || !institutionNo) {
-      Alert.alert("Please fill all fields");
+    let valid = true;
+
+    if (!bankName) {
+      setBankNameError('Bank name is required')
+      valid = false;
+    } else {
+      setBankNameError('');
+    }
+    if (!holderName) {
+      setHolderNameError("Account holdername is required")
+      valid = false;
+    } else {
+      setHolderNameError('');
+    }
+    if (!accountNumber) {
+      setAccountNumberError('Account number is required')
+      valid = false;
+    } else {
+      setAccountNumberError('')
+    }
+    if (!transitNo) {
+      setTransitNoError('Transit number is required');
+      valid = false;
+    } else {
+      setTransitNoError('')
+    }
+    if (!institutionNo) {
+      setInstitutionNoError('Institution number is required');
+      valid = false;
+    } else {
+      setInstitutionNoError('')
+    }
+
+    if (!valid) {
       return;
     }
 
@@ -33,9 +72,20 @@ export default function BankAccount({ navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
 
-      <Text style={[styles.title, { color: theme.primary }]}>
-        Bank Account
-      </Text>
+      <TouchableOpacity
+        style={styles.header}
+        onPress={() => navigation.navigate('PaymentMethod')}
+      >
+        <Icon
+          name="close"
+          size={30}
+          color={'red'}
+          style={[styles.closeIcon, { borderColor: theme.primary }]}
+        />
+        <Text style={[styles.headerText, { color: theme.primary }]}>
+          Bank Account
+        </Text>
+      </TouchableOpacity>
 
       <View
         style={[
@@ -54,12 +104,20 @@ export default function BankAccount({ navigation }) {
               borderColor: theme.primary,
               backgroundColor: theme.inputBackground,
               color: theme.text
-            }
+            },
+            bankNameError ? styles.errorInput : null
           ]}
           placeholder="Royal Bank of Canada"
           placeholderTextColor={theme.placeholder}
-          onChangeText={setBankName}
+          onChangeText={(text) => {
+            setBankName(text);
+            setBankNameError('');
+          }}
         />
+
+        {bankNameError ? (
+          <Text style={styles.errorText}>{bankNameError}</Text>
+        ) : null}
 
         <Text style={[styles.label, { color: theme.text }]}>
           Account Holder Name
@@ -71,12 +129,22 @@ export default function BankAccount({ navigation }) {
               borderColor: theme.primary,
               backgroundColor: theme.inputBackground,
               color: theme.text
-            }
+            },
+            holderNameError ? styles.errorInput : null
+
           ]}
           placeholder="Full Name"
           placeholderTextColor={theme.placeholder}
-          onChangeText={setHolderName}
+          onChangeText={(text) => {
+            setHolderName(text);
+            setHolderNameError('')
+          }}
         />
+        {holderNameError ? (
+          <Text style={styles.errorText}>
+            {holderNameError}
+          </Text>
+        ) : null}
 
         <Text style={[styles.label, { color: theme.text }]}>
           Account Number
@@ -88,14 +156,22 @@ export default function BankAccount({ navigation }) {
               borderColor: theme.primary,
               backgroundColor: theme.inputBackground,
               color: theme.text
-            }
+            },
+            accountNumberError ? styles.errorInput : null
           ]}
           keyboardType="numeric"
           placeholder="**** 123"
           placeholderTextColor={theme.placeholder}
-          onChangeText={setAccountNumber}
+          onChangeText={(text) => {
+            setAccountNumber(text);
+            setAccountNumberError('')
+          }}
         />
-
+        {accountNumberError ? (
+          <Text style={styles.errorText}>
+            {accountNumberError}
+          </Text>
+        ) : null}
         <Text style={[styles.label, { color: theme.text }]}>
           Transit No
         </Text>
@@ -106,13 +182,22 @@ export default function BankAccount({ navigation }) {
               borderColor: theme.primary,
               backgroundColor: theme.inputBackground,
               color: theme.text
-            }
+            },
+            transitNoError ? styles.errorInput : null
           ]}
           keyboardType="numeric"
           placeholder="12345"
           placeholderTextColor={theme.placeholder}
-          onChangeText={setTransitNo}
+          onChangeText={(text) => {
+            setTransitNo(text);
+            setTransitNoError('')
+          }}
         />
+        {transitNoError ? (
+          <Text style={styles.errorText}>
+            {transitNoError}
+          </Text>
+        ) : null}
 
         <Text style={[styles.label, { color: theme.text }]}>
           Institution No
@@ -124,13 +209,22 @@ export default function BankAccount({ navigation }) {
               borderColor: theme.primary,
               backgroundColor: theme.inputBackground,
               color: theme.text
-            }
+            },
+            institutionNoError ? styles.errorInput : null
           ]}
           keyboardType="numeric"
           placeholder="123"
           placeholderTextColor={theme.placeholder}
-          onChangeText={setInstitutionNo}
+          onChangeText={(text) => {
+            setInstitutionNo(text)
+            setInstitutionNoError('')
+          }}
         />
+        {institutionNoError ? (
+          <Text style={styles.errorText}>
+            {institutionNoError}
+          </Text>
+        ) : null}
 
         <TouchableOpacity
           style={[
@@ -154,19 +248,27 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
 
-  title: {
-    fontSize: 33,
-    fontWeight: 'bold',
-    marginBottom: -33,
-    marginTop: 15,
-    textAlign: 'center'
+  },
+
+  closeIcon: {
+    borderWidth: 3,
+  },
+
+  headerText: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 25,
+    fontWeight: '700',
   },
 
   label: {
     marginTop: 12,
     fontSize: 18,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 
   input: {
@@ -186,11 +288,19 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 20,
     padding: 20,
-    marginTop: 60
   },
 
   btnText: {
     fontWeight: 'bold',
     fontSize: 16
-  }
+  },
+  errorInput: {
+    borderColor: 'red',
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 5,
+    fontSize: 14,
+    marginLeft: 5,
+  },
 });
