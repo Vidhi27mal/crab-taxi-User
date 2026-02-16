@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
-import { useTheme } from '../component/ThemeContext'
+import { ThemeContext } from '../Theme/ThemeContext'
 
 export default function Welcome({ navigation }) {
 
-  const { theme } = useTheme()
+  const { theme } = useContext(ThemeContext)
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
@@ -30,7 +30,6 @@ export default function Welcome({ navigation }) {
         <Text style={[styles.arrow, { color: theme.buttonText }]}>
           →
         </Text>
-
       </TouchableOpacity>
 
     </View>
@@ -38,26 +37,22 @@ export default function Welcome({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 40,
   },
-
   appName: {
     fontSize: 32,
     fontWeight: 'bold',
     marginTop: 80,
   },
-
   image: {
     width: '80%',
     height: 280,
     marginBottom: 80
   },
-
   button: {
     flexDirection: 'row',
     width: '90%',
@@ -67,17 +62,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
   },
-
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 110,
   },
-
   arrow: {
     fontSize: 25,
     fontWeight: 'bold',
     marginRight: 20
   },
-
 })
