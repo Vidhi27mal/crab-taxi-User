@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TextInput
 } from 'react-native';
-import { ThemeContext } from '../Theme/ThemeContext'; // adjust path if needed
+import { ThemeContext } from '../Theme/ThemeContext'; 
 
 export default function Settings({ navigation }) {
   const { colors } = useContext(ThemeContext);

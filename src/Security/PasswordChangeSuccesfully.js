@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { ThemeContext } from '../Theme/ThemeContext'; // adjust path if needed
+import { ThemeContext } from '../Theme/ThemeContext'; 
 
 export default function RideCancelConfirmed({ navigation }) {
   const { colors } = useContext(ThemeContext);

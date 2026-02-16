@@ -55,8 +55,8 @@ const SelectVehicle = ({ navigation }) => {
               borderColor: theme.primary,
               backgroundColor:
                 selectedVehicle === item.id
-                  ? theme.selectedCard
-                  : theme.card,
+                  ?theme.primary
+                  : theme.selectedCard,
             },
           ]}
           onPress={() => setSelectedVehicle(item.id)}

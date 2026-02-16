@@ -1,68 +1,121 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React, { useContext } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import { ThemeContext } from "../Theme/ThemeContext";
 
 export default function HelpAndSupport({ navigation }) {
-    return (
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.header} onPress={() => navigation.goBack()}>
-                <Icon name="close" style={styles.closeIcon} />
+  const { theme } = useContext(ThemeContext);
 
+  return (
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme.background },
+      ]}
+    >
+      {/* HEADER */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="close" size={28} color={theme.text} />
+        </TouchableOpacity>
 
-                <Text style={styles.title}>Help & Support</Text>
-                </TouchableOpacity>
-                <View>
-                    <TouchableOpacity
-                        style={styles.option}
-                        onPress={() => navigation.navigate('PaymentRefundIssue')}>
-                        <Text style={styles.optionText}>Payment / Refund Issue</Text>
-                    </TouchableOpacity>
+        <Text
+          style={[
+            styles.title,
+            { color: theme.primary },
+          ]}
+        >
+          Help & Support
+        </Text>
 
-                    <TouchableOpacity
-                        style={styles.option}
-                        onPress={() => navigation.navigate('RideCancellationIssue')}>
-                        <Text style={styles.optionText}>Ride / Cancellation Issue</Text>
-                    </TouchableOpacity>
+        <View style={{ width: 28 }} />
+      </View>
 
-                    <TouchableOpacity
-                        style={styles.option}
-                        onPress={() => navigation.navigate('ContactSupport')}>
-                        <Text style={styles.optionText}>Contact Support</Text>
-                    </TouchableOpacity>
+      {/* OPTIONS */}
+      <View>
+        <TouchableOpacity
+          style={[
+            styles.option,
+            { borderColor: theme.primary },
+          ]}
+          onPress={() => navigation.navigate("PaymentRefundIssue")}
+        >
+          <Text
+            style={[
+              styles.optionText,
+              { color: theme.text },
+            ]}
+          >
+            Payment / Refund Issue
+          </Text>
+        </TouchableOpacity>
 
+        <TouchableOpacity
+          style={[
+            styles.option,
+            { borderColor: theme.primary },
+          ]}
+          onPress={() => navigation.navigate("RideCancellationIssue")}
+        >
+          <Text
+            style={[
+              styles.optionText,
+              { color: theme.text },
+            ]}
+          >
+            Ride / Cancellation Issue
+          </Text>
+        </TouchableOpacity>
 
-
-
-                </View>
-
-        </View>
-    );
+        <TouchableOpacity
+          style={[
+            styles.option,
+            { borderColor: theme.primary },
+          ]}
+          onPress={() => navigation.navigate("ContactSupport")}
+        >
+          <Text
+            style={[
+              styles.optionText,
+              { color: theme.text },
+            ]}
+          >
+            Contact Support
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        padding: 20
-    },
-    title: {
-        fontSize: 33,
-        fontWeight: '700',
-        color: '#2ECC71',
-        marginTop: 15,
-        marginBottom: 55,
-        textAlign: 'center'
-    },
-    option: {
-        borderWidth: 2,
-        borderColor: '#2ECC71',
-        borderRadius: 12,
-        padding: 18,
-        marginBottom: 17
-    },
-    optionText: {
-        fontSize: 18,
-        color: '#111',
-        fontWeight: '500'
-    }
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 40,
+  },
+
+  title: {
+    fontSize: 26,
+    fontWeight: "700",
+    textAlign: "center",
+  },
+
+  option: {
+    borderWidth: 2,
+    borderRadius: 12,
+    padding: 18,
+    marginBottom: 17,
+  },
+
+  optionText: {
+    fontSize: 18,
+    fontWeight: "500",
+  },
 });

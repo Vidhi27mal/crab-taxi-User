@@ -54,6 +54,7 @@ export default function ContactSupport({ navigation }) {
             borderColor: theme.primary
           }
         ]}
+        onPress={() => navigation.navigate('EmailSupport')}
       >
         <Ionicons name="mail-outline" size={24} color={theme.text} />
         <Text style={[styles.optionText, { color: theme.text }]}>
