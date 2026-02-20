@@ -9,51 +9,52 @@ import {
 import { ThemeContext } from '../Theme/ThemeContext'; 
 
 export default function Settings({ navigation }) {
-  const { colors } = useContext(ThemeContext);
+
+  const { theme } = useContext(ThemeContext);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
 
-      <Text style={[styles.title, { color: colors.primary }]}>
+      <Text style={[styles.title, { color: theme.primary }]}>
         Reset Password
       </Text>
 
       {/* Current Password */}
-      <View style={[styles.inputBox, { borderColor: colors.primary, backgroundColor: colors.card }]}>
+      <View style={[styles.inputBox, { borderColor: theme.primary, backgroundColor: theme.card }]}>
         <TextInput
-          style={[styles.input, { color: colors.text }]}
+          style={[styles.input, { color: theme.text }]}
           placeholder="TYPE YOUR CURRENT PASSWORD"
-          placeholderTextColor={colors.text + '80'}
+          placeholderTextColor={theme.text + '80'}
           secureTextEntry
         />
       </View>
 
       {/* New Password */}
-      <View style={[styles.inputBox, { borderColor: colors.primary, backgroundColor: colors.card }]}>
+      <View style={[styles.inputBox, { borderColor: theme.primary, backgroundColor: theme.card }]}>
         <TextInput
-          style={[styles.input, { color: colors.text }]}
+          style={[styles.input, { color: theme.text }]}
           placeholder="TYPE YOUR NEW PASSWORD"
-          placeholderTextColor={colors.text + '80'}
+          placeholderTextColor={theme.text + '80'}
           secureTextEntry
         />
       </View>
 
       {/* Confirm Password */}
-      <View style={[styles.inputBox, { borderColor: colors.primary, backgroundColor: colors.card }]}>
+      <View style={[styles.inputBox, { borderColor: theme.primary, backgroundColor: theme.card }]}>
         <TextInput
-          style={[styles.input, { color: colors.text }]}
+          style={[styles.input, { color: theme.text }]}
           placeholder="CONFIRM YOUR NEW PASSWORD"
-          placeholderTextColor={colors.text + '80'}
+          placeholderTextColor={theme.text + '80'}
           secureTextEntry
         />
       </View>
 
       {/* Update Button */}
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: colors.primary }]}
+        style={[styles.button, { backgroundColor: theme.primary }]}
         onPress={() => navigation.navigate('PasswordChangeSuccessfully')}
       >
-        <Text style={[styles.btnText, { color: colors.background }]}>
+        <Text style={[styles.btnText, { color: theme.text }]}>
           Update Password
         </Text>
       </TouchableOpacity>
@@ -63,6 +64,7 @@ export default function Settings({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     padding: 25
@@ -96,4 +98,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16
   }
+
 });

@@ -73,6 +73,7 @@ const PaymentMethod = ({ navigation }) => {
             { borderColor: theme.primary }
           ]}
           onPress={() => navigation.navigate('Etransfer')}
+        
         >
           <Text style={[styles.itemText, { color: theme.text }]}>
             E - Transfer

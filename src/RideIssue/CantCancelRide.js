@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     padding: 18,
     borderRadius: 12,
     alignItems: "center",
-    marginTop: 400,
+    marginTop: 200,
   },
 
   solidText: {

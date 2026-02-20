@@ -102,7 +102,7 @@ export default function ChooseMap({ navigation }) {
           {
             backgroundColor: selectedMap
               ? theme.primary
-              : theme.card
+              : theme.primary
           }
         ]}
         disabled={!selectedMap}

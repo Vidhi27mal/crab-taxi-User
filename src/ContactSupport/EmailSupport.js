@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
     View,
     Text,
@@ -8,11 +8,11 @@ import {
     Linking
 } from 'react-native';
 
-import { useTheme } from '../Theme/ThemeContext'; 
+import { ThemeContext } from '../Theme/ThemeContext';
 
 const EmailSupport = () => {
 
-    const { theme } = useTheme();
+    const { theme } = useContext(ThemeContext);
 
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
@@ -74,7 +74,6 @@ const EmailSupport = () => {
 };
 
 export default EmailSupport;
-
 
 
 const createStyles = (theme) =>

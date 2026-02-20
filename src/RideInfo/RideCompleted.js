@@ -12,7 +12,7 @@ const RideCompleted = ({ navigation }) => {
 
       {/* HEADER */}
       <View style={[styles.header, { backgroundColor: theme.primary }]}>
-        <Text style={[styles.headerText, { color: theme.background }]}>
+        <Text style={[styles.headerText, { color: theme.text }]}>
           Ride Completed
         </Text>
       </View>
@@ -43,7 +43,7 @@ const RideCompleted = ({ navigation }) => {
         style={[styles.payBtn, { backgroundColor: theme.primary }]}
         onPress={() => navigation.navigate("PaymentMethod")}
       >
-        <Text style={[styles.payText, { color: theme.background }]}>
+        <Text style={[styles.payText, { color: theme.text}]}>
           Pay Now
         </Text>
       </TouchableOpacity>

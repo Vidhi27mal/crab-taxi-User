@@ -25,6 +25,7 @@ export default function PaymentFailed({ navigation }) {
       </Text>
 
       <TouchableOpacity
+      
         style={[
           styles.option,
           {

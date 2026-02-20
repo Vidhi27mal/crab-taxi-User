@@ -4,20 +4,21 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ThemeContext } from '../Theme/ThemeContext'; 
 
 export default function RideCancelConfirmed({ navigation }) {
-  const { colors } = useContext(ThemeContext);
+
+  const { theme } = useContext(ThemeContext);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
       
-      <View style={[styles.iconWrapper, { backgroundColor: colors.primary }]}>
-        <Ionicons name="checkmark" size={90} color={colors.background} />
+      <View style={[styles.iconWrapper, { backgroundColor: theme.primary }]}>
+        <Ionicons name="checkmark" size={90} color={theme.background} />
       </View>
 
-      <Text style={[styles.title, { color: colors.text }]}>
+      <Text style={[styles.title, { color: theme.text }]}>
         Password Changed
       </Text>
 
-      <Text style={[styles.subtitle, { color: colors.text }]}>
+      <Text style={[styles.subtitle, { color: theme.text }]}>
         Successfully
       </Text>
 
@@ -26,6 +27,7 @@ export default function RideCancelConfirmed({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -50,4 +52,5 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: 'bold',
   },
+
 });
