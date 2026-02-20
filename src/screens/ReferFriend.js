@@ -4,11 +4,26 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Share,
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ThemeContext } from "../Theme/ThemeContext";
 
 export default function ReferFriendScreen({ navigation }) {
   const { theme } = useContext(ThemeContext);
+
+  const referralCode = "ABCD1234";
+
+  const onShare = async () => {
+    try {
+      await Share.share({
+        message:
+          `Hey! Use my referral code ${referralCode} and get free ride credits on GrabTaxi! 🚕`,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View
@@ -17,6 +32,7 @@ export default function ReferFriendScreen({ navigation }) {
         { backgroundColor: theme.background },
       ]}
     >
+      {/* Header */}
       <Text
         style={[
           styles.header,
@@ -26,10 +42,14 @@ export default function ReferFriendScreen({ navigation }) {
         Refer A Friend
       </Text>
 
+      {/* Referral Card */}
       <View
         style={[
           styles.card,
-          { borderColor: theme.primary },
+          {
+            borderColor: theme.primary,
+            backgroundColor: theme.card,
+          },
         ]}
       >
         <Text
@@ -56,26 +76,95 @@ export default function ReferFriendScreen({ navigation }) {
             { color: theme.primary },
           ]}
         >
-          ABCD1234
+          {referralCode}
         </Text>
       </View>
 
+      {/* Social Media Share Icons */}
+      <View style={styles.socialContainer}>
+
+        <TouchableOpacity
+          style={[
+            styles.socialIcon,
+            { backgroundColor: theme.card },
+          ]}
+          onPress={onShare}
+        >
+          <Ionicons
+            name="logo-whatsapp"
+            size={28}
+            color={theme.primary}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.socialIcon,
+            { backgroundColor: theme.card },
+          ]}
+          onPress={onShare}
+        >
+          <Ionicons
+            name="logo-instagram"
+            size={28}
+            color={theme.primary}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.socialIcon,
+            { backgroundColor: theme.card },
+          ]}
+          onPress={onShare}
+        >
+          <Ionicons
+            name="paper-plane"
+            size={28}
+            color={theme.primary}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.socialIcon,
+            { backgroundColor: theme.card },
+          ]}
+          onPress={onShare}
+        >
+          <Ionicons
+            name="mail"
+            size={28}
+            color={theme.primary}
+          />
+        </TouchableOpacity>
+
+      </View>
+
+      {/* Share Button */}
       <TouchableOpacity
         style={[
           styles.button,
           { backgroundColor: theme.primary },
         ]}
-        onPress={() => navigation.navigate('FriendLink')}
+        onPress={onShare}
       >
-        <Text style={styles.buttonText}>
+        <Text
+          style={[
+            styles.buttonText,
+            { color: theme.background },
+          ]}
+        >
           Share Invite
         </Text>
       </TouchableOpacity>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
     flex: 1,
     paddingHorizontal: 20,
@@ -115,6 +204,21 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
+  socialContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 40,
+  },
+
+  socialIcon: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 4,
+  },
+
   button: {
     height: 55,
     borderRadius: 14,
@@ -129,6 +233,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#000',
   },
+
 });

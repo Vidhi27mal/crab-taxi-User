@@ -29,7 +29,7 @@ export default function IssueTyped() {
           styles.card,
           {
             borderColor: theme.primary,
-            backgroundColor: theme.card
+            
           }
         ]}
       >
@@ -38,14 +38,8 @@ export default function IssueTyped() {
         </Text>
 
         <TextInput
-          style={[
-            styles.input,
-            {
-              color: theme.text,
-              borderColor: theme.primary
-            }
-          ]}
-          placeholder="Type your issue here..."
+          
+          placeholder="What's Bothering You?..."
           placeholderTextColor={theme.text}
           multiline
           value={issue}

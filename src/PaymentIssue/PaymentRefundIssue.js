@@ -12,7 +12,7 @@ export default function PaymentRefundIssue({ navigation }) {
 
      <TouchableOpacity
              style={styles.header}
-             onPress={() => navigation.navigate('HelpAndSupport')}
+             onPress={() => navigation.goBack()}
            >
              <Icon
                name="close"
