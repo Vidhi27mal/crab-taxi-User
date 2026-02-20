@@ -2,8 +2,11 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useContext } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ThemeContext } from '../Theme/ThemeContext';
+import { AuthContext } from "../context/AuthContext";
 
 const CustomDrawer = ({ navigation }) => {
+
+   const { user, setUser } = useContext(AuthContext)
 
   const { theme, toggleTheme, isDark } = useContext(ThemeContext);
 
@@ -22,7 +25,7 @@ const CustomDrawer = ({ navigation }) => {
         <Icon name="person" style={[styles.profileIcon, { color: theme.text }]} />
       </View>
 
-      <Text style={[styles.name, { color: theme.text }]}>Gourav</Text>
+      <Text style={[styles.name, { color: theme.text }]}>{user}</Text>
 
       {["Profile", "Inbox", "Activity", "Wallet", "Help", "Settings"].map(
         (item) => (
@@ -42,7 +45,8 @@ const CustomDrawer = ({ navigation }) => {
       )}
 
       <TouchableOpacity style={styles.menuItem}>
-        <Text style={styles.logout}>Log Out</Text>
+        <Text style={styles.logout}
+        onPress={() => navigation.navigate('Login')}>Log Out</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.emergencyBtn}>

@@ -4,10 +4,12 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView 
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ThemeContext } from "../Theme/ThemeContext";
+import {AuthContext} from "../context/AuthContext"
 
 
 const Register = ({ navigation }) => {
   const { theme } = useContext(ThemeContext);
+  const {setUser} = useContext(AuthContext)
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -63,6 +65,8 @@ const Register = ({ navigation }) => {
     if (!valid) {
       return;
     }
+
+    setUser(username);
 
     setUsername("");
     setEmail("");
