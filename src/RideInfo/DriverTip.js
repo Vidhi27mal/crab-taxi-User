@@ -7,6 +7,7 @@ import {
   TextInput,
 } from "react-native";
 import { ThemeContext } from "../Theme/ThemeContext";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const BASE_PRICE = 40;
 const COUPON_DISCOUNT = 5;
@@ -36,12 +37,27 @@ const SurpriseDriver = ({ navigation }) => {
     }
   };
 
+  const totalPrice = () => {
+
+    setCoupon('')
+    setSelectedTip('')
+    navigation.navigate('PaymentMethod')
+  }
+
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       
-      <Text style={[styles.title, { color: theme.text }]}>
-        Surprise Driver
-      </Text>
+      <View style={styles.header}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Icon name="arrow-back" size={28} color={theme.primary} />
+              </TouchableOpacity>
+      
+              <Text style={[styles.headerTitle, { color: theme.primary }]}>
+                Surprise Driver
+              </Text>
+      
+              <View style={{ width: 28 }} />
+            </View>
 
       <Text style={[styles.section, { color: theme.text }]}>
         Add Tip
@@ -106,7 +122,7 @@ const SurpriseDriver = ({ navigation }) => {
             { backgroundColor: theme.primary },
           ]}
         >
-          <Text style={{ color: theme.background, textAlign: "center" }}>
+          <Text style={{ color: theme.text, textAlign: "center" }}>
             Coupon Applied Successfully
           </Text>
         </View>
@@ -114,9 +130,9 @@ const SurpriseDriver = ({ navigation }) => {
 
       <TouchableOpacity
         style={[styles.totalBox, { backgroundColor: theme.primary }]}
-        onPress={() => navigation.navigate("PaymentMethod")}
+        onPress={totalPrice}
       >
-        <Text style={{ color: theme.background, fontWeight: "600" }}>
+        <Text style={{ color: theme.text, fontWeight: "600" }}>
           TOTAL PRICE
         </Text>
 
@@ -142,17 +158,22 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-
-  title: {
-    fontSize: 22,
-    fontWeight: "600",
-    textAlign: "center",
-    marginBottom: 20,
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginTop: 20,
+    marginBottom: 40,
+  },
+
+  headerTitle: {
+    fontSize: 25,
+    fontWeight: "600",
+    color: "#000",
   },
 
   section: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "500",
     marginVertical: 20,
   },

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { ThemeContext } from '../Theme/ThemeContext';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function PaymentRefundIssue({ navigation }) {
 
@@ -9,9 +10,21 @@ export default function PaymentRefundIssue({ navigation }) {
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
 
-      <Text style={[styles.title, { color: theme.primary }]}>
-        Payment / Refund Issue
-      </Text>
+     <TouchableOpacity
+             style={styles.header}
+             onPress={() => navigation.navigate('HelpAndSupport')}
+           >
+             <Icon
+               name="close"
+               size={28}
+               color={"red"}
+               style={{ borderWidth: 2, borderColor: theme.primary, padding: 4 }}
+             />
+             <Text style={[styles.headerText, { color: theme.primary }]}>
+               Payment & Refund Issues
+             </Text>
+           </TouchableOpacity>
+     
 
       <TouchableOpacity
         style={[
@@ -68,11 +81,16 @@ const styles = StyleSheet.create({
     padding: 20
   },
 
-  title: {
-    fontSize: 33,
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 60,
+  },
+  headerText: {
+    flex: 1,
+    paddingHorizontal: 20,
+    fontSize: 25,
     fontWeight: '700',
-    marginBottom: 45,
-    marginTop: 15
   },
 
   option: {

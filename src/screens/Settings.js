@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { ThemeContext } from "../Theme/ThemeContext";
 
 export default function Settings({ navigation }) {
@@ -14,20 +14,20 @@ export default function Settings({ navigation }) {
       ]}
     >
       {/* Header */}
-      <View style={styles.header}>
-        <Text
-          style={[
-            styles.title,
-            { color: theme.primary },
-          ]}
-        >
+      <TouchableOpacity
+        style={styles.header}
+        onPress={() => navigation.goBack()}
+      >
+        <Icon
+          name="close"
+          size={28}
+          color={"red"}
+          style={{ borderWidth: 2, borderColor: theme.primary, padding: 4 }}
+        />
+        <Text style={[styles.headerText, { color: theme.primary }]}>
           Settings
         </Text>
-
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="close" size={28} color={theme.text} />
-        </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
 
       {/* Options */}
 
@@ -87,12 +87,12 @@ const styles = StyleSheet.create({
 
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 60,
   },
-
-  title: {
+  headerText: {
+    flex: 1,
+    paddingHorizontal: 60,
     fontSize: 30,
     fontWeight: '700',
   },

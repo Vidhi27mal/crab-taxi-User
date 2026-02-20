@@ -45,6 +45,7 @@ const Wallet = ({ navigation }) => {
           styles.rechargeBtn,
           { backgroundColor: theme.primary }
         ]}
+        onPress={()=>navigation.navigate('PaymentMethod')}
       >
         <Text style={[styles.rechargeText, { color: theme.buttonText }]}>
           RECHARGE YOUR WALLET

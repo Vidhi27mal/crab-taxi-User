@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ThemeContext } from '../Theme/ThemeContext';
-import Etransfer from './Etransfer';
 
 const PaymentMethod = ({ navigation }) => {
 

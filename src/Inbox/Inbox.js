@@ -17,7 +17,7 @@ const Inbox = ({ navigation }) => {
         <Icon
           name="close"
           size={30}
-          color={theme.primary}
+          color={'red'}
           style={[styles.closeIcon, { borderColor: theme.primary }]}
         />
         <Text style={[styles.headerText, { color: theme.primary }]}>

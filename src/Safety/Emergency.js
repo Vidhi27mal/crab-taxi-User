@@ -26,7 +26,6 @@ export default function HelpAndSupport({ navigation }) {
           styles.option,
           { backgroundColor: theme.danger || "red" }, 
         ]}
-        onPress={() => navigation.navigate("PaymentRefundIssue")}
       >
         <Text
           style={[

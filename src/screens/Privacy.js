@@ -4,10 +4,12 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import { ThemeContext } from "../Theme/ThemeContext";
+import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function PrivacyPolicyScreen() {
+export default function PrivacyPolicyScreen({ navigation }) {
   const { theme } = useContext(ThemeContext);
 
   return (
@@ -17,14 +19,20 @@ export default function PrivacyPolicyScreen() {
         { backgroundColor: theme.background },
       ]}
     >
-      <Text
-        style={[
-          styles.header,
-          { color: theme.primary },
-        ]}
+      <TouchableOpacity
+        style={styles.header}
+        onPress={() => navigation.navigate('Settings')}
       >
-        Privacy Policy
-      </Text>
+        <Icon
+          name="close"
+          size={28}
+          color={"red"}
+          style={{ borderWidth: 2, borderColor: theme.primary, padding: 4 }}
+        />
+        <Text style={[styles.headerText, { color: theme.primary }]}>
+          Privacy Policy
+        </Text>
+      </TouchableOpacity>
 
       <ScrollView
         contentContainerStyle={{ paddingBottom: 40 }}
@@ -76,10 +84,15 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    textAlign: 'center',
-    fontSize: 28,
-    fontWeight: '600',
-    marginBottom: 25,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 60,
+  },
+  headerText: {
+    flex: 1,
+    paddingHorizontal: 35,
+    fontSize: 30,
+    fontWeight: '700',
   },
 
   card: {

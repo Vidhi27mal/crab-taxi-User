@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {AuthContext} from "../context/AuthContext"
 
 
 const Login = ({ navigation }) => {
+
+  const { setUser } = useContext(AuthContext);
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState('');
@@ -28,11 +32,13 @@ const Login = ({ navigation }) => {
     if (!valid) {
       return;
     }
+
+    setUser(username);
     
     setUsername('');
     setPassword('');
 
-    navigation.replace('Main');
+    navigation.replace('Main',{username});
   };
 
   const handleRegister = () => {

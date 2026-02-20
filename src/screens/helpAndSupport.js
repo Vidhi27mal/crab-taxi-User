@@ -14,22 +14,20 @@ export default function HelpAndSupport({ navigation }) {
       ]}
     >
       {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="close" size={28} color={theme.text} />
-        </TouchableOpacity>
-
-        <Text
-          style={[
-            styles.title,
-            { color: theme.primary },
-          ]}
-        >
-          Help & Support
-        </Text>
-
-        <View style={{ width: 28 }} />
-      </View>
+      <TouchableOpacity
+             style={styles.header}
+             onPress={() => navigation.goBack()}
+           >
+             <Icon
+               name="close"
+               size={28}
+               color={"red"}
+               style={{ borderWidth: 2, borderColor: theme.primary, padding: 4 }}
+             />
+             <Text style={[styles.headerText, { color: theme.primary }]}>
+               Help & Support
+             </Text>
+           </TouchableOpacity>
 
       {/* OPTIONS */}
       <View>
@@ -95,17 +93,17 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 40,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 60,
+  },
+  headerText: {
+    flex: 1,
+    paddingHorizontal: 30,
+    fontSize: 30,
+    fontWeight: '700',
   },
 
-  title: {
-    fontSize: 26,
-    fontWeight: "700",
-    textAlign: "center",
-  },
 
   option: {
     borderWidth: 2,

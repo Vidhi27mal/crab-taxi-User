@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { ThemeContext } from "../Theme/ThemeContext";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function SafetyScreen({ navigation }) {
   const { theme } = useContext(ThemeContext);
@@ -12,14 +13,20 @@ export default function SafetyScreen({ navigation }) {
         { backgroundColor: theme.background },
       ]}
     >
-      <Text
-        style={[
-          styles.title,
-          { color: theme.primary },
-        ]}
-      >
-        Safety
-      </Text>
+     <TouchableOpacity
+             style={styles.header}
+             onPress={() => navigation.navigate('Settings')}
+           >
+             <Icon
+               name="close"
+               size={28}
+               color={"red"}
+               style={{ borderWidth: 2, borderColor: theme.primary, padding: 4 }}
+             />
+             <Text style={[styles.headerText, { color: theme.primary }]}>
+               Safety
+             </Text>
+           </TouchableOpacity>
 
       <TouchableOpacity
         style={[
@@ -64,12 +71,16 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 
-  title: {
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 60,
+  },
+  headerText: {
+    flex: 1,
+    paddingHorizontal: 65,
     fontSize: 30,
     fontWeight: '700',
-    marginTop: 20,
-    marginBottom: 50,
-    textAlign: 'center',
   },
 
   option: {
